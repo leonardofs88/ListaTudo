@@ -8,10 +8,56 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private(set) var mainViewModel = MainViewModel()
+    @State private var currentIndex: Int = 0
+    
     var body: some View {
-        ListingView(
-            listingViewModel: ListingViewModel()
-        )
+        HStack {
+            VStack(alignment: .center) {
+                GeometryReader { proxy in
+                    ZStack {
+                        ForEach(Array(mainViewModel.lists.enumerated()), id: \.offset) { index, item in
+                            ZStack {
+                                ListingView(listingViewModel: item)
+                            }
+                            .offset(x: CGFloat(index - currentIndex) * (proxy.size.width * 0.93))
+                        }
+                    }
+                    .gesture(
+                        DragGesture()
+                            .onEnded { value in
+                                let cardWidth = proxy.size.width * 0.2
+                                let offset = value.translation.width / cardWidth
+                                
+                                withAnimation(.spring) {
+                                    if value.translation.width < -offset {
+                                        currentIndex = min(currentIndex + 1, mainViewModel.lists.count - 1)
+                                    } else if value.translation.width > offset {
+                                        currentIndex = max(currentIndex - 1, 0)
+                                    }
+                                }
+                            }
+                    )
+                }
+            }
+            .padding(.horizontal, 16)
+        }
+        .onAppear(perform: {
+            mainViewModel.getLists()
+        })
+        .toolbar {
+            ToolbarItemGroup(placement: .bottomBar) {
+                Button {
+                    
+                } label: {
+                    HStack {
+                        Image(systemName: IconNames.Objects.pencilSquare)
+                        Text("Create new")
+                    }
+                }
+            }
+        }
     }
 }
 
@@ -19,152 +65,30 @@ struct ContentView: View {
     ContentView()
 }
 
-struct ListingView: View {
-    @State private(set) var listingViewModel: ListingViewModel
-    
-    var body: some View {
-        List(listingViewModel.todoList) { item in
-           ListItem(item: item)
-        }
-        .onAppear {
-            listingViewModel.getListingItems()
-        }
-    }
-}
-
 @MainActor
 @Observable
-class ChoreViewModel {
-    private(set) var chore: ChoreData
+class MainViewModel {
+    private(set) var lists: [ListingViewModel] = []
     
-    init(chore: ChoreData) {
-        self.chore = chore
+    func createNewList(title: String, chores: [ChoreData]) {
+        let viewModels = chores.map { ChoreViewModel(chore: $0) }
+        let newList = ListingViewModel(title: title, todoList: viewModels)
+        lists.append(newList)
     }
     
-    func setStatus(_ value: Bool) {
-        chore.status = value
+    func getLists() {
+        let newList = ListingViewModel(title: "Hello")
+        lists.append(newList)
+        let newList1 = ListingViewModel(title: "dey")
+        lists.append(newList1)
+        let newList2 = ListingViewModel(title: "212")
+        lists.append(newList2)
+        let newList3 = ListingViewModel(title: "566655")
+        lists.append(newList3)
     }
     
-    func setDescription(_ description: String) {
-        chore.description = description
-    }
-}
-
-@MainActor
-@Observable
-class ListingViewModel {
-    private(set) var todoList: [ChoreData] = []
-    
-    func getListingItems() {
-        todoList = ChoreData.getExampleData()
-    }
-    
-    func createNewChore(_ title: String, description: String? = nil) {
-        let newChore = ChoreData(
-            status: false,
-            title: title,
-            description: description
-        )
-        
-        todoList.append(newChore)
-    }
-}
-
-struct ListItem: View {
-    
-    @State private(set) var item: ChoreData
-    @State private var circleSize: CGFloat = 15
-    @State private var circleColor = Color.secondary
-    
-    var body: some View {
-        VStack {
-            HStack {
-                Circle()
-                    .fill(circleColor)
-                    .frame(width: circleSize, height: circleSize)
-                    .scaleEffect(item.status ? 1 : 0.5)
-                    .animation(
-                        .easeOut(duration: 0.2),
-                        value: item.status
-                    )
-                    .onTapGesture {
-                        item.status.toggle()
-                        configButton()
-                    }
-                
-                VStack(alignment: .leading) {
-                    Text(item.title)
-                        .font(.headline)
-                    
-                    if let description = item.description {
-                        Text(description)
-                            .font(.subheadline)
-                    }
-                }
-            }
-        }
-        .onAppear {
-            configButton()
-        }
-    }
-    
-    private func configButton() {
-        circleColor = item.status ? Color.green : Color.yellow
-        circleSize = item.status ? 17 : 15
-    }
-}
-
-struct ListingData: Identifiable {
-    let id = UUID()
-    var name: String
-    var chores: [ChoreData]
-}
-
-struct ChoreData: Identifiable {
-    let id = UUID()
-    var status: Bool
-    var title: String
-    var description: String?
-    
-   static func getExampleData() -> [ChoreData] {
-        [ChoreData(
-            status: false,
-            title: "Do the dishes",
-            description: "Need to use good soap"
-        ),
-         ChoreData(
-            status: false,
-            title: "Broom the living room",
-            description: "Don't use the outside broom"
-         ),
-         ChoreData(
-            status: true,
-            title: "Brush the bathtub",
-         ),
-         ChoreData(
-            status: false,
-            title: "Throw the garbage",
-            description: "Please, recycle"
-         ),
-         ChoreData(
-            status: true,
-            title: "Prepare diner",
-            description: "today we'll get a good pasta"
-         ),
-         ChoreData(
-            status: false,
-            title: "Repair the shoe rack",
-            description: "It's almost breaking"
-         ),
-         ChoreData(
-            status: false,
-            title: "Broom the living room",
-            description: "Don't use the outside broom"
-         ),
-         ChoreData(
-            status: false,
-            title: "Broom the living room",
-            description: "Don't use the outside broom"
-         )]
+    func getNextId(_ viewModel: ListingViewModel) -> Int {
+       let index = lists.firstIndex { $0.id == viewModel.id } ?? 0
+        return index + 1
     }
 }
