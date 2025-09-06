@@ -11,13 +11,16 @@ struct ListingView: View {
     @State private(set) var listingViewModel: ListingViewModel
     
     var body: some View {
-        List(listingViewModel.todoList, id: \.chore.id) { item in
-           ListItem(choreViewModel: item)
-                .environment(listingViewModel)
-        }
-        .navigationTitle(listingViewModel.title)
-        .onAppear {
-            listingViewModel.getListingItems()
+        NavigationStack  {
+            List(listingViewModel.todoList, id: \.chore.id) { item in
+                ListItem(choreViewModel: item)
+                    .environment(listingViewModel)
+            }
+            .listStyle(.plain)
+            .navigationTitle(listingViewModel.title)
+            .onAppear {
+                listingViewModel.getListingItems()
+            }
         }
     }
 }

@@ -13,36 +13,31 @@ struct ContentView: View {
     @State private var currentIndex: Int = 0
     
     var body: some View {
-        HStack {
-            VStack(alignment: .center) {
-                GeometryReader { proxy in
-                    ZStack {
-                        ForEach(Array(mainViewModel.lists.enumerated()), id: \.offset) { index, item in
-                            ZStack {
-                                ListingView(listingViewModel: item)
-                            }
-                            .offset(x: CGFloat(index - currentIndex) * (proxy.size.width * 0.93))
-                        }
+        /**
+         Cards view styling adapted from: https://medium.com/@kusalprabathrajapaksha/animated-carousel-view-swiftui-cee1954f0be7
+         */
+        GeometryReader { proxy in
+            ScrollView(.horizontal) {
+                LazyHStack(spacing: 5) {
+                    ForEach(Array(mainViewModel.lists.enumerated()), id: \.offset) {
+                        index,
+                        item in
+                        ListingView(listingViewModel: item)
+                            .frame(
+                                width: proxy.size.width * 0.94,
+                                height:proxy.size.height * 0.94,
+                                alignment: .leading
+                            )
                     }
-                    .gesture(
-                        DragGesture()
-                            .onEnded { value in
-                                let cardWidth = proxy.size.width * 0.2
-                                let offset = value.translation.width / cardWidth
-                                
-                                withAnimation(.spring) {
-                                    if value.translation.width < -offset {
-                                        currentIndex = min(currentIndex + 1, mainViewModel.lists.count - 1)
-                                    } else if value.translation.width > offset {
-                                        currentIndex = max(currentIndex - 1, 0)
-                                    }
-                                }
-                            }
-                    )
+                    .clipShape(.rect(cornerRadius: 20.0))
                 }
+                .shadow(radius: 5, x: 5, y: 5)
+                .scrollTargetLayout() // Align content to the view
             }
-            .padding(.horizontal, 16)
         }
+        .contentMargins(10, for: .scrollContent)
+        .scrollTargetBehavior(.paging) // Align content behavior
+        .background(Color.yellow)
         .onAppear(perform: {
             mainViewModel.getLists()
         })
@@ -52,8 +47,7 @@ struct ContentView: View {
                     
                 } label: {
                     HStack {
-                        Image(systemName: IconNames.Objects.pencilSquare)
-                        Text("Create new")
+                        Text("Create a new List")
                     }
                 }
             }
@@ -88,7 +82,7 @@ class MainViewModel {
     }
     
     func getNextId(_ viewModel: ListingViewModel) -> Int {
-       let index = lists.firstIndex { $0.id == viewModel.id } ?? 0
+        let index = lists.firstIndex { $0.id == viewModel.id } ?? 0
         return index + 1
     }
 }

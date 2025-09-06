@@ -26,5 +26,6 @@ struct IconNames {
     struct Objects {
         private init() { }
         static let pencilSquare = "square.and.pencil"
+        static let ellipsis = "ellipsis.circle"
     }
 }

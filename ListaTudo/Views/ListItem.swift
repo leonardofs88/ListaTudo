@@ -46,6 +46,7 @@ struct ListItem: View {
                 VStack(alignment: .leading) {
                     Text(choreViewModel.chore.title)
                         .font(.headline)
+                        .strikethrough(choreViewModel.chore.status == .approved)
                     
                     if let description = choreViewModel.chore.description {
                         Text(description)
