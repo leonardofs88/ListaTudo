@@ -12,27 +12,22 @@ import Foundation
 class ListingViewModel: Identifiable {
     let id = UUID()
     private(set) var title: String
-    private(set) var todoList: [ChoreViewModel]
+    private(set) var choreList: [ChoreViewModel]
 
     var onGoingChore: ChoreViewModel? {
-        todoList.first { $0.chore.status == .inProgress }
+        choreList.first { $0.chore.status == .inProgress }
     }
     
     init(title: String, todoList: [ChoreViewModel] = []) {
         self.title = title
-        self.todoList = todoList
+        self.choreList = todoList
     }
     
     func setTitle(_ value: String) {
         title = value
     }
-    
-    func getListingItems() {
-        todoList = ChoreData.getExampleData()
-            .map({ ChoreViewModel(chore: $0) })
-    }
-    
-    func createNewChore(_ title: String, description: String? = nil) {
+
+    func createNewChore(_ title: String, description: String = "") {
         let newChore = ChoreData(
             id: UUID(),
             status: .toDo,
@@ -40,11 +35,11 @@ class ListingViewModel: Identifiable {
             description: description
         )
         
-        todoList.append(ChoreViewModel(chore: newChore))
+        choreList.append(ChoreViewModel(chore: newChore))
     }
     
     func pauseOnGoingChore() {
-        todoList = todoList.map({ item in
+        choreList = choreList.map({ item in
             if item.chore.status == .inProgress {
                 item.setStatus(.onPause)
             }

@@ -11,7 +11,7 @@ struct ChoreData: Identifiable, Codable, Hashable {
     var id: UUID
     var status: ChoreStatus
     var title: String
-    var description: String?
+    var description: String = ""
     
    static func getExampleData() -> [ChoreData] {
         [ChoreData(

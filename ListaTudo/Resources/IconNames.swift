@@ -27,5 +27,8 @@ struct IconNames {
         private init() { }
         static let pencilSquare = "square.and.pencil"
         static let ellipsis = "ellipsis.circle"
+        static let pencilAndListClipboard = "pencil.and.list.clipboard"
+        static let heardClipboard = "heart.text.clipboard"
+        static let archiveBox = "archivebox"
     }
 }
