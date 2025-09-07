@@ -9,6 +9,7 @@ import SwiftUI
 
 struct NewListView: View {
     @Environment(MainViewModel.self) private var mainViewModel
+    @Environment(ToastViewModel.self) private var toastViewModel
     @Binding private(set) var sheetIsPresented: Bool
     @FocusState private var titleIsFocused
     @State private(set) var title: String = ""
@@ -54,12 +55,20 @@ struct NewListView: View {
             }
             .buttonStyle(BlueButton())
         }
+        .toast(viewModel: toastViewModel)
         .background(Color.yellow.opacity(0.5))
     }
     
     private func listValidator() {
-        if !(listingViewModel.choreList.isEmpty || listingViewModel.title.isEmpty) {
-            
+        if listingViewModel.choreList.isEmpty || title.isEmpty {
+            toastViewModel.setToast(
+                ToastData(
+                    style: .alert,
+                    message: "List needs a title and content",
+                    duration: 3
+                )
+            )
+            toastViewModel.showToast()
         } else {
             listingViewModel.setTitle(title)
             mainViewModel.addList(listingViewModel)
@@ -71,4 +80,5 @@ struct NewListView: View {
 #Preview {
     NewListView(sheetIsPresented: .constant(true))
         .environment(MainViewModel())
+        .environment(ToastViewModel())
 }
