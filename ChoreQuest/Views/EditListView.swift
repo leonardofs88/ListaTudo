@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct EditListView: View {
+    @Environment(\.dismiss) var dismiss
     @Environment(MainViewModel.self) private var mainViewModel
     @Environment(ToastViewModel.self) private var toastViewModel
     @Binding private(set) var sheetIsPresented: Bool
@@ -18,62 +19,72 @@ struct EditListView: View {
     @State private var isEditChoreShowing = false
     
     var body: some View {
-        VStack {
-            List {
-                Section {
+        NavigationStack {
+            VStack {
+                List {
                     Section {
-                        Button {
-                            selectedChore = nil
-                            isEditChoreShowing = true
-                        } label: {
-                            Label("Add chore", systemImage: IconNames.Control.plus)
-                        }
-                    }
-                    
-                    ForEach(listingViewModel.choreList, id: \.chore.id) { item in
                         Section {
-                            VStack(alignment: .leading) {
-                                Text(item.chore.title)
-                                if !item.chore.description.isEmpty {
-                                    Text(item.chore.description)
-                                        .font(.subheadline)
+                            Button {
+                                selectedChore = nil
+                                isEditChoreShowing = true
+                            } label: {
+                                Label("Add chore", systemImage: IconNames.Control.plus)
+                            }
+                        }
+                        
+                        ForEach(listingViewModel.choreList, id: \.chore.id) { item in
+                            Section {
+                                VStack(alignment: .leading) {
+                                    Text(item.chore.title)
+                                    if !item.chore.description.isEmpty {
+                                        Text(item.chore.description)
+                                            .font(.subheadline)
+                                    }
+                                }
+                                .swipeActions {
+                                    Button {
+                                        selectedChore = item
+                                        isEditChoreShowing = true
+                                    } label: {
+                                        Image(systemName: IconNames.Objects.pencilSquare)
+                                    }.tint(.purple)
                                 }
                             }
-                            .swipeActions {
-                                Button {
-                                    selectedChore = item
-                                    isEditChoreShowing = true
-                                } label: {
-                                    Image(systemName: IconNames.Objects.pencilSquare)
-                                }.tint(.purple)
-                            }
                         }
+                    } header: {
+                        TextField("Add title", text: $title)
+                            .focused($titleIsFocused)
+                            .font(.title)
+                            .fontWeight(.bold)
                     }
-                } header: {
-                    TextField("Add title", text: $title)
-                        .focused($titleIsFocused)
-                        .font(.title)
-                        .fontWeight(.bold)
+                }
+                .scrollContentBackground(.hidden)
+                
+                Button {
+                    listValidator()
+                } label: {
+                    HStack {
+                        Image(systemName: IconNames.Objects.heardClipboard)
+                        Text("Save list")
+                    }
+                }
+                .buttonStyle(BlueButton())
+            }
+            .sheet(isPresented: $isEditChoreShowing, content: {
+                ChoreItemView(choreViewModel: selectedChore)
+                    .environment(listingViewModel)
+            })
+            .toast(viewModel: toastViewModel)
+            .background(Color.yellow.opacity(0.5))
+            .toolbar {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                    .buttonStyle(BlueButton(padding: 8))
                 }
             }
-            .scrollContentBackground(.hidden)
-            
-            Button {
-                listValidator()
-            } label: {
-                HStack {
-                    Image(systemName: IconNames.Objects.heardClipboard)
-                    Text("Save list")
-                }
-            }
-            .buttonStyle(BlueButton())
         }
-        .sheet(isPresented: $isEditChoreShowing, content: {
-            ChoreItemView(choreViewModel: selectedChore)
-                .environment(listingViewModel)
-        })
-        .toast(viewModel: toastViewModel)
-        .background(Color.yellow.opacity(0.5))
     }
     
     private func listValidator() {

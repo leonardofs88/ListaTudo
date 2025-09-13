@@ -98,12 +98,18 @@ struct MainView: View {
 }
 
 struct BlueButton: ButtonStyle {
+    @State private(set) var padding: CGFloat
+    
+    init(padding: CGFloat = 12) {
+        self.padding = padding
+    }
+    
     func makeBody(configuration: Configuration) -> some View {
         configuration.label
-            .padding()
+            .padding(padding)
             .background(Color(red: 0, green: 0, blue: 0.5))
             .foregroundStyle(.white)
             .clipShape(Capsule())
-            .shadow(radius: 5, x: 5, y: 5)
+            .shadow(radius: 2, x: 2, y: 2)
     }
 }

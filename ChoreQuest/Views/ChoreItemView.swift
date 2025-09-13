@@ -17,24 +17,35 @@ struct ChoreItemView: View {
     @State private(set) var choreViewModel: ChoreViewModel?
     var body: some View {
         NavigationStack {
-            VStack {
-                VStack(alignment: .leading) {
-                    TextField(
-                        "Chore title",
-                        text: $title,
-                        prompt: Text(titlePlaceholder)
-                            .foregroundStyle(titleIsValid ? Color(uiColor: UIColor.placeholderText) : Color.red.opacity(0.7))
-                    )
-                    TextField("Chore description", text: $description)
-                }.background(Color.white)
+            VStack() {
+                HStack {
+                    VStack(alignment: .leading) {
+                        TextField(
+                            "Chore title",
+                            text: $title,
+                            prompt: Text(titlePlaceholder)
+                                .foregroundStyle(titleIsValid ? Color(uiColor: UIColor.placeholderText) : Color.red.opacity(0.7))
+                        )
+                        TextField("Chore description", text: $description)
+                    }
+                    .padding()
+                    .background(
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(Color.white)
+                            .shadow(color: .gray, radius: 2, x: 0, y: 2))
+                    
+                }
+                .padding()
+                Spacer()
             }
-            .padding()
+            .background(Color.orange.opacity(0.5))
             .toolbar(
                 content: {
                     ToolbarItem(placement: .cancellationAction) {
                         Button("Cancel", role: .destructive) {
                             dismiss()
                         }
+                        .buttonStyle(BlueButton(padding: 8))
                     }
                     
                     ToolbarItem(placement: .confirmationAction) {
@@ -49,6 +60,7 @@ struct ChoreItemView: View {
                                 dismiss()
                             }
                         }
+                        .buttonStyle(BlueButton(padding: 8))
                     }
                 })
             .onAppear {
