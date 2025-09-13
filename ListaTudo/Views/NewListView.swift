@@ -19,7 +19,7 @@ struct NewListView: View {
         VStack {
             List {
                 Section {
-                    NewChoreItemView()
+                    ChoreItemView()
                         .environment(listingViewModel)
                         .transition(
                             .push(from: .top)
@@ -37,9 +37,9 @@ struct NewListView: View {
                         }
                     }
                 } header: {
-                    TextField("New List", text: $title)
+                    TextField("New Chores List", text: $title)
                         .focused($titleIsFocused)
-                        .font(.largeTitle)
+                        .font(.title)
                         .fontWeight(.bold)
                 }
             }

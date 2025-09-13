@@ -23,7 +23,7 @@ struct ListingView: View {
                     }
                 } header: {
                     HStack {
-                         TextField("Title", text: $title)
+                         TextField("New Chore List Title", text: $title)
                                 .focused($titleIsFocused)
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
