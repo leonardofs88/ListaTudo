@@ -1,6 +1,6 @@
 //
-//  ChoreQUestApp.swift
-//  ListaTudo
+//  ChoreQuestApp.swift
+//  ChoreQuest
 //
 //  Created by Leonardo Soares on 17/08/2025.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct ChoreQUestApp: App {
+struct ChoreQuestApp: App {
     var body: some Scene {
         WindowGroup {
             MainView()

@@ -1,6 +1,6 @@
 //
 //  IconNames.swift
-//  ListaTudo
+//  ChoreQuest
 //
 //  Created by Leonardo Soares on 24/08/2025.
 //
@@ -16,6 +16,8 @@ struct IconNames {
         static let play = "play.fill"
         static let stop = "stop.fill"
         static let pause = "pause.fill"
+        static let plus = "plus.circle"
+        static let cancel = "x.circle"
     }
     
     struct Status {
@@ -30,5 +32,6 @@ struct IconNames {
         static let pencilAndListClipboard = "pencil.and.list.clipboard"
         static let heardClipboard = "heart.text.clipboard"
         static let archiveBox = "archivebox"
+        static let saveTray = "tray.and.arrow.down"
     }
 }

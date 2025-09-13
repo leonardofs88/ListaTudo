@@ -1,6 +1,6 @@
 //
 //  MainViewModel.swift
-//  ListaTudo
+//  ChoreQuest
 //
 //  Created by Leonardo Soares on 06/09/2025.
 //

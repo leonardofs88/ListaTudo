@@ -1,6 +1,6 @@
 //
 //  ChoreViewModel.swift
-//  ListaTudo
+//  ChoreQuest
 //
 //  Created by Leonardo Soares on 24/08/2025.
 //
@@ -31,6 +31,10 @@ class ChoreViewModel: Identifiable {
         default:
             chore.status
         }
+    }
+    
+    func setTitle(_ title: String) {
+        chore.title = title
     }
     
     func setDescription(_ description: String) {

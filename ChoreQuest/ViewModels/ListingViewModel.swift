@@ -1,6 +1,6 @@
 //
 //  ListingViewModel.swift
-//  ListaTudo
+//  ChoreQuest
 //
 //  Created by Leonardo Soares on 24/08/2025.
 //
@@ -27,15 +27,20 @@ class ListingViewModel: Identifiable {
         title = value
     }
 
-    func createNewChore(_ title: String, description: String = "") {
-        let newChore = ChoreData(
-            id: UUID(),
-            status: .toDo,
-            title: title,
-            description: description
-        )
-        
-        choreList.append(ChoreViewModel(chore: newChore))
+    func saveChore(id: UUID? = nil, title: String, description: String = "") {
+        if let id, let index = choreList.firstIndex(where: { $0.id == id }) {
+            choreList[index].setTitle(title)
+            choreList[index].setDescription(description)
+        } else {
+            let newChore = ChoreData(
+                id: UUID(),
+                status: .toDo,
+                title: title,
+                description: description
+            )
+            
+            choreList.append(ChoreViewModel(chore: newChore))
+        }
     }
     
     func pauseOnGoingChore() {

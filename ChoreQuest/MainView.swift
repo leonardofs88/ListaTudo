@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  ListaTudo
+//  ChoreQuest
 //
 //  Created by Leonardo Soares on 17/08/2025.
 //
@@ -79,8 +79,13 @@ struct MainView: View {
             }
             .buttonStyle(BlueButton())
         }
-        .sheet(isPresented: $sheetIsPresented, content: {
-            NewListView(sheetIsPresented: $sheetIsPresented)
+        .sheet(
+            isPresented: $sheetIsPresented,
+            content: {
+                EditListView(
+                    sheetIsPresented: $sheetIsPresented,
+                    listingViewModel: ListingViewModel(title: "")
+                )
                 .environment(mainViewModel)
         })
         .background(Color.yellow)

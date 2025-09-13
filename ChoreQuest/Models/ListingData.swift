@@ -1,6 +1,6 @@
 //
 //  ListingData.swift
-//  ListaTudo
+//  ChoreQuest
 //
 //  Created by Leonardo Soares on 24/08/2025.
 //
