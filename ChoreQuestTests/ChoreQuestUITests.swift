@@ -1,14 +1,14 @@
 //
-//  ListaTudoTests.swift
-//  ListaTudoTests
+//  ChoreQuestUITests.swift
+//  ChoreQuestUITests
 //
 //  Created by Leonardo Soares on 17/08/2025.
 //
 
 import Testing
-@testable import ListaTudo
+@testable import ChoreQuest
 
-struct ListaTudoTests {
+struct ChoreQuestUITests {
 
     @Test func example() async throws {
         // Write your test here and use APIs like `#expect(...)` to check expected conditions.

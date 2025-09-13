@@ -1,13 +1,13 @@
 //
-//  ListaTudoUITestsLaunchTests.swift
-//  ListaTudoUITests
+//  ChoreQuestUITestsLaunchTests.swift
+//  ChoreQuestUITests
 //
 //  Created by Leonardo Soares on 17/08/2025.
 //
 
 import XCTest
 
-final class ListaTudoUITestsLaunchTests: XCTestCase {
+final class ChoreQuestUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

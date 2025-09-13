@@ -1,13 +1,13 @@
 //
-//  ListaTudoUITests.swift
-//  ListaTudoUITests
+//  ChoreQuestUITests.swift
+//  ChoreQuestUITests
 //
 //  Created by Leonardo Soares on 17/08/2025.
 //
 
 import XCTest
 
-final class ListaTudoUITests: XCTestCase {
+final class ChoreQuestUITests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

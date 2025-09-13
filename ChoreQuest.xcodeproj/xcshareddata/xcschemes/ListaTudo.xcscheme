@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "982A193C2E51FE57003F1C26"
-               BuildableName = "ListaTudo.app"
-               BlueprintName = "ListaTudo"
-               ReferencedContainer = "container:ListaTudo.xcodeproj">
+               BuildableName = "ChoreQuest.app"
+               BlueprintName = "ChoreQuest"
+               ReferencedContainer = "container:ChoreQuest.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -36,9 +36,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "982A19492E51FE58003F1C26"
-               BuildableName = "ListaTudoTests.xctest"
-               BlueprintName = "ListaTudoTests"
-               ReferencedContainer = "container:ListaTudo.xcodeproj">
+               BuildableName = "ChoreQuestTests.xctest"
+               BlueprintName = "ChoreQuestTests"
+               ReferencedContainer = "container:ChoreQuest.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "982A19532E51FE58003F1C26"
-               BuildableName = "ListaTudoUITests.xctest"
-               BlueprintName = "ListaTudoUITests"
-               ReferencedContainer = "container:ListaTudo.xcodeproj">
+               BuildableName = "ChoreQuestUITests.xctest"
+               BlueprintName = "ChoreQuestUITests"
+               ReferencedContainer = "container:ChoreQuest.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -69,9 +69,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "982A193C2E51FE57003F1C26"
-            BuildableName = "ListaTudo.app"
-            BlueprintName = "ListaTudo"
-            ReferencedContainer = "container:ListaTudo.xcodeproj">
+            BuildableName = "ChoreQuest.app"
+            BlueprintName = "ChoreQuest"
+            ReferencedContainer = "container:ChoreQuest.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -86,9 +86,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "982A193C2E51FE57003F1C26"
-            BuildableName = "ListaTudo.app"
-            BlueprintName = "ListaTudo"
-            ReferencedContainer = "container:ListaTudo.xcodeproj">
+            BuildableName = "ChoreQuest.app"
+            BlueprintName = "ChoreQuest"
+            ReferencedContainer = "container:ChoreQuest.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
