@@ -1,5 +1,5 @@
 //
-//  ListingView.swift
+//  ChoreListingView.swift
 //  ChoreQuest
 //
 //  Created by Leonardo Soares on 24/08/2025.
@@ -7,11 +7,13 @@
 
 import SwiftUI
 
-struct ListingView: View {
+struct ChoreListingView: View {
     @FocusState private var titleIsFocused
     
     @State private(set) var title: String = ""
     @State private(set) var listingViewModel: ListingViewModel
+    
+    @State private var sheetIsPresented: Bool = false
     
     var body: some View {
         NavigationStack  {
@@ -29,7 +31,7 @@ struct ListingView: View {
                                 .fontWeight(.bold)
                         Spacer()
                         Button {
-                            
+                            sheetIsPresented = true
                         } label: {
                             Image(systemName: IconNames.Objects.pencilSquare)
                         }
@@ -46,12 +48,18 @@ struct ListingView: View {
                 title = listingViewModel.title
                 print(listingViewModel.title)
             }
+            .sheet(isPresented: $sheetIsPresented) {
+                EditListView(
+                    sheetIsPresented: $sheetIsPresented,
+                    listingViewModel: listingViewModel
+                )
+            }
         }
     }
 }
 
 #Preview {
-    ListingView(
+    ChoreListingView(
         listingViewModel: ListingViewModel(
             title: "Aaaa"
         )

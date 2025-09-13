@@ -84,6 +84,9 @@ struct EditListView: View {
                     .buttonStyle(BlueButton(padding: 8))
                 }
             }
+            .onAppear {
+                title = listingViewModel.title
+            }
         }
     }
     
@@ -99,7 +102,11 @@ struct EditListView: View {
             toastViewModel.showToast()
         } else {
             listingViewModel.setTitle(title)
-            mainViewModel.addList(listingViewModel)
+            mainViewModel.saveList(
+                id: listingViewModel.id,
+                title: title,
+                chores: listingViewModel.choreList.map({ $0.chore })
+            )
             sheetIsPresented = false
         }
     }

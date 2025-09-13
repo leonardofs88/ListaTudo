@@ -11,7 +11,6 @@ struct MainView: View {
     
     @State private(set) var toastViewModel = ToastViewModel()
     @State private(set) var mainViewModel = MainViewModel()
-    @State private var currentIndex: Int = 0
     @State private var sheetIsPresented = false
     
     var body: some View {
@@ -32,7 +31,9 @@ struct MainView: View {
                                 index,
                                 item in
                                 // TODO: - Adjustment for cards on portrait mode and iPad
-                                ListingView(listingViewModel: item)
+                                ChoreListingView(
+                                    listingViewModel: item
+                                )
                                     .frame(
                                         width: proxy.size.width * 0.94,
                                         height:proxy.size.height * 0.94,
@@ -86,10 +87,10 @@ struct MainView: View {
                     sheetIsPresented: $sheetIsPresented,
                     listingViewModel: ListingViewModel(title: "")
                 )
-                .environment(mainViewModel)
         })
         .background(Color.yellow)
         .environment(toastViewModel)
+        .environment(mainViewModel)
     }
 }
 

@@ -26,6 +26,10 @@ class ListingViewModel: Identifiable {
     func setTitle(_ value: String) {
         title = value
     }
+    
+    func setChoreList(_ list: [ChoreViewModel]) {
+        choreList = list
+    }
 
     func saveChore(id: UUID? = nil, title: String, description: String = "") {
         if let id, let index = choreList.firstIndex(where: { $0.id == id }) {
