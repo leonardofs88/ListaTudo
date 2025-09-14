@@ -78,14 +78,13 @@ struct MainView: View {
                     Text("Create a new List")
                 }
             }
-            .buttonStyle(BlueButton())
+            .buttonStyle(ChoreQuestButtonStyle())
         }
         .sheet(
             isPresented: $sheetIsPresented,
             content: {
                 EditListView(
-                    sheetIsPresented: $sheetIsPresented,
-                    listingViewModel: ListingViewModel(title: "")
+                    sheetIsPresented: $sheetIsPresented
                 )
         })
         .background(Color.yellow)
@@ -96,21 +95,4 @@ struct MainView: View {
 
 #Preview {
     MainView()
-}
-
-struct BlueButton: ButtonStyle {
-    @State private(set) var padding: CGFloat
-    
-    init(padding: CGFloat = 12) {
-        self.padding = padding
-    }
-    
-    func makeBody(configuration: Configuration) -> some View {
-        configuration.label
-            .padding(padding)
-            .background(Color(red: 0, green: 0, blue: 0.5))
-            .foregroundStyle(.white)
-            .clipShape(Capsule())
-            .shadow(radius: 2, x: 2, y: 2)
-    }
 }

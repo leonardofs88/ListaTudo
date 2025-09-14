@@ -45,7 +45,7 @@ struct ChoreItemView: View {
                         Button("Cancel", role: .destructive) {
                             dismiss()
                         }
-                        .buttonStyle(BlueButton(padding: 8))
+                        .buttonStyle(ChoreQuestButtonStyle(padding: 8))
                     }
                     
                     ToolbarItem(placement: .confirmationAction) {
@@ -60,7 +60,7 @@ struct ChoreItemView: View {
                                 dismiss()
                             }
                         }
-                        .buttonStyle(BlueButton(padding: 8))
+                        .buttonStyle(ChoreQuestButtonStyle(padding: 8))
                     }
                 })
             .onAppear {

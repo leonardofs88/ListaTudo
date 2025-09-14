@@ -23,6 +23,13 @@ struct EditListView: View {
     @State private(set) var title: String = ""
     @State private(set) var listingViewModel: ListingViewModel
     @State private var choreItemSelection: ChoreItemSelection?
+    @State private(set) var isNewList: Bool
+    
+    init(sheetIsPresented: Binding<Bool>, listingViewModel: ListingViewModel? = nil) {
+        self.isNewList = listingViewModel == nil
+        self._sheetIsPresented = sheetIsPresented
+        self.listingViewModel = listingViewModel ?? ListingViewModel(title: "")
+    }
     
     var body: some View {
         NavigationStack {
@@ -56,23 +63,44 @@ struct EditListView: View {
                             }
                         }
                     } header: {
-                        TextField("Add title", text: $title)
-                            .focused($titleIsFocused)
-                            .font(.title)
-                            .fontWeight(.bold)
+                        HStack {
+                            TextField("Add title", text: $title)
+                                .focused($titleIsFocused)
+                                .font(.title)
+                                .fontWeight(.bold)
+                        }
                     }
                 }
                 .scrollContentBackground(.hidden)
                 
-                Button {
-                    listValidator()
-                } label: {
-                    HStack {
-                        Image(systemName: IconNames.Objects.heardClipboard)
-                        Text("Save list")
+                HStack {
+                    if !isNewList {
+                        Button {
+                            
+                        } label: {
+                            HStack {
+                                Image(systemName: IconNames.Objects.trash)
+                                Text("Delete")
+                            }
+                        }
+                        .buttonStyle(
+                            ChoreQuestButtonStyle(
+                                backgroundColor: ColorNames.defaultRed
+                            )
+                        )
+                        
                     }
+                    
+                    Button {
+                        listValidator()
+                    } label: {
+                        HStack {
+                            Image(systemName: IconNames.Objects.heardClipboard)
+                            Text("Save")
+                        }
+                    }
+                    .buttonStyle(ChoreQuestButtonStyle())
                 }
-                .buttonStyle(BlueButton())
             }
             .sheet(item: $choreItemSelection) { selection in
                 let viewModel: ChoreViewModel? = switch selection {
@@ -92,7 +120,7 @@ struct EditListView: View {
                     Button("Cancel") {
                         dismiss()
                     }
-                    .buttonStyle(BlueButton(padding: 8))
+                    .buttonStyle(ChoreQuestButtonStyle(padding: 8))
                 }
             }
             .onAppear {
@@ -125,8 +153,7 @@ struct EditListView: View {
 
 #Preview {
     EditListView(
-        sheetIsPresented: .constant(true),
-        listingViewModel: ListingViewModel(title: "")
+        sheetIsPresented: .constant(true)
     )
     .environment(MainViewModel())
     .environment(ToastViewModel())

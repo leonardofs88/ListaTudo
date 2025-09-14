@@ -34,5 +34,6 @@ struct IconNames {
         static let heardClipboard = "heart.text.clipboard"
         static let archiveBox = "archivebox"
         static let saveTray = "tray.and.arrow.down"
+        static let trash = "trash"
     }
 }

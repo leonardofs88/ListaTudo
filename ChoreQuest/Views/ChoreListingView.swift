@@ -33,7 +33,7 @@ struct ChoreListingView: View {
                         } label: {
                             Image(systemName: IconNames.Objects.pencilSquare)
                         }
-                        .buttonStyle(BlueButton())
+                        .buttonStyle(ChoreQuestButtonStyle())
                     }
                 }
             }
@@ -57,7 +57,7 @@ struct ChoreListingView: View {
 #Preview {
     ChoreListingView(
         listingViewModel: ListingViewModel(
-            title: "Aaaa",
+            title: "Household chores",
             choreList: [
                 ChoreViewModel(
                     chore: ChoreData(
@@ -107,42 +107,45 @@ struct ChoreListingView: View {
                     chore: ChoreData(
                         id: UUID(),
                         status: .toDo,
-                        title: "Make the bed"
+                        title: "Fix the front door"
+                    )
+                ),
+                ChoreViewModel(
+                    chore: ChoreData(
+                        id: UUID(),
+                        status: .onPause,
+                        title: "Replace the kitchen sink",
+                        description: "Need to buy a new sink"
                     )
                 ),
                 ChoreViewModel(
                     chore: ChoreData(
                         id: UUID(),
                         status: .toDo,
-                        title: "Make the bed"
+                        title: "Buy more milk",
+                        description: "Skimmed and no lactose"
                     )
                 ),
                 ChoreViewModel(
                     chore: ChoreData(
                         id: UUID(),
                         status: .toDo,
-                        title: "Make the bed"
+                        title: "Buy presents for the neighbours son",
+                        description: "His birthday is on Monday"
                     )
                 ),
                 ChoreViewModel(
                     chore: ChoreData(
                         id: UUID(),
                         status: .toDo,
-                        title: "Make the bed"
+                        title: "Fix the bedroom floor"
                     )
                 ),
                 ChoreViewModel(
                     chore: ChoreData(
                         id: UUID(),
                         status: .toDo,
-                        title: "Make the bed"
-                    )
-                ),
-                ChoreViewModel(
-                    chore: ChoreData(
-                        id: UUID(),
-                        status: .toDo,
-                        title: "Make the bed"
+                        title: "Organize the books"
                     )
                 )]
         )
