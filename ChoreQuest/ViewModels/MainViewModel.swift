@@ -25,7 +25,10 @@ class MainViewModel {
             
         } else {
             let viewModels = chores.map { ChoreViewModel(chore: $0) }
-            let newList = ListingViewModel(title: title, todoList: viewModels)
+            let newList = ListingViewModel(
+                title: title,
+                choreList: viewModels
+            )
             lists.append(newList)
         }
     }

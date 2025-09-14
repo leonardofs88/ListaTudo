@@ -23,6 +23,7 @@ struct IconNames {
     struct Status {
         private init() { }
         static let check = "checkmark.square.fill"
+        static let cancelled = "x.circle.fill"
     }
     
     struct Objects {

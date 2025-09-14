@@ -18,9 +18,9 @@ class ListingViewModel: Identifiable {
         choreList.first { $0.chore.status == .inProgress }
     }
     
-    init(title: String, todoList: [ChoreViewModel] = []) {
+    init(title: String, choreList: [ChoreViewModel] = []) {
         self.title = title
-        self.choreList = todoList
+        self.choreList = choreList
     }
     
     func setTitle(_ value: String) {

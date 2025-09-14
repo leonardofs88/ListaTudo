@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct ChoreListingView: View {
-    @FocusState private var titleIsFocused
     
     @State private(set) var title: String = ""
     @State private(set) var listingViewModel: ListingViewModel
@@ -25,8 +24,7 @@ struct ChoreListingView: View {
                     }
                 } header: {
                     HStack {
-                         TextField("New Chore List Title", text: $title)
-                                .focused($titleIsFocused)
+                         Text(title)
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
                         Spacer()
@@ -39,11 +37,9 @@ struct ChoreListingView: View {
                     }
                 }
             }
+            .listRowSeparator(.hidden)
             .scrollContentBackground(.hidden)
             .listStyle(.plain)
-            .onChange(of: titleIsFocused, { oldValue, newValue in
-                listingViewModel.setTitle(title)
-            })
             .onAppear {
                 title = listingViewModel.title
                 print(listingViewModel.title)
@@ -61,7 +57,94 @@ struct ChoreListingView: View {
 #Preview {
     ChoreListingView(
         listingViewModel: ListingViewModel(
-            title: "Aaaa"
+            title: "Aaaa",
+            choreList: [
+                ChoreViewModel(
+                    chore: ChoreData(
+                        id: UUID(),
+                        status: .toDo,
+                        title: "Make the bed"
+                    )
+                ),
+                ChoreViewModel(
+                    chore: ChoreData(
+                        id: UUID(),
+                        status: .toDo,
+                        title: "Do the dishes"
+                    )
+                ),
+                ChoreViewModel(
+                    chore: ChoreData(
+                        id: UUID(),
+                        status: .inProgress,
+                        title: "Clean the wardrobe"
+                    )
+                ),
+                ChoreViewModel(
+                    chore: ChoreData(
+                        id: UUID(),
+                        status: .toDo,
+                        title: "Put the trash out",
+                        description: "Use the black bags"
+                    )
+                ),
+                ChoreViewModel(
+                    chore: ChoreData(
+                        id: UUID(),
+                        status: .onPause,
+                        title: "Mow the lawn"
+                    )
+                ),
+                ChoreViewModel(
+                    chore: ChoreData(
+                        id: UUID(),
+                        status: .toDo,
+                        title: "Paint the garage walls",
+                        description: "Use white paint"
+                    )
+                ),
+                ChoreViewModel(
+                    chore: ChoreData(
+                        id: UUID(),
+                        status: .toDo,
+                        title: "Make the bed"
+                    )
+                ),
+                ChoreViewModel(
+                    chore: ChoreData(
+                        id: UUID(),
+                        status: .toDo,
+                        title: "Make the bed"
+                    )
+                ),
+                ChoreViewModel(
+                    chore: ChoreData(
+                        id: UUID(),
+                        status: .toDo,
+                        title: "Make the bed"
+                    )
+                ),
+                ChoreViewModel(
+                    chore: ChoreData(
+                        id: UUID(),
+                        status: .toDo,
+                        title: "Make the bed"
+                    )
+                ),
+                ChoreViewModel(
+                    chore: ChoreData(
+                        id: UUID(),
+                        status: .toDo,
+                        title: "Make the bed"
+                    )
+                ),
+                ChoreViewModel(
+                    chore: ChoreData(
+                        id: UUID(),
+                        status: .toDo,
+                        title: "Make the bed"
+                    )
+                )]
         )
     )
 }

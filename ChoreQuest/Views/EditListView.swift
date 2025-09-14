@@ -7,6 +7,13 @@
 
 import SwiftUI
 
+enum ChoreItemSelection: Identifiable {
+    case newChore
+    case editChore(ChoreViewModel)
+    
+    var id: UUID { UUID() }
+}
+
 struct EditListView: View {
     @Environment(\.dismiss) var dismiss
     @Environment(MainViewModel.self) private var mainViewModel
@@ -15,8 +22,7 @@ struct EditListView: View {
     @FocusState private var titleIsFocused
     @State private(set) var title: String = ""
     @State private(set) var listingViewModel: ListingViewModel
-    @State private var selectedChore: ChoreViewModel?
-    @State private var isEditChoreShowing = false
+    @State private var choreItemSelection: ChoreItemSelection?
     
     var body: some View {
         NavigationStack {
@@ -25,8 +31,7 @@ struct EditListView: View {
                     Section {
                         Section {
                             Button {
-                                selectedChore = nil
-                                isEditChoreShowing = true
+                                choreItemSelection = .newChore
                             } label: {
                                 Label("Add chore", systemImage: IconNames.Control.plus)
                             }
@@ -43,8 +48,7 @@ struct EditListView: View {
                                 }
                                 .swipeActions {
                                     Button {
-                                        selectedChore = item
-                                        isEditChoreShowing = true
+                                        choreItemSelection = .editChore(item)
                                     } label: {
                                         Image(systemName: IconNames.Objects.pencilSquare)
                                     }.tint(.purple)
@@ -70,10 +74,17 @@ struct EditListView: View {
                 }
                 .buttonStyle(BlueButton())
             }
-            .sheet(isPresented: $isEditChoreShowing, content: {
-                ChoreItemView(choreViewModel: selectedChore)
-                    .environment(listingViewModel)
-            })
+            .sheet(item: $choreItemSelection) { selection in
+                let viewModel: ChoreViewModel? = switch selection {
+                case .newChore:
+                    nil
+                case .editChore(let editViewModel):
+                    editViewModel
+                }
+                
+                ChoreItemView(choreViewModel: viewModel)
+                        .environment(listingViewModel)
+            }
             .toast(viewModel: toastViewModel)
             .background(Color.yellow.opacity(0.5))
             .toolbar {

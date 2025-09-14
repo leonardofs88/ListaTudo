@@ -8,12 +8,13 @@
 import Foundation
 import SwiftUI
 
-enum ChoreStatus: Codable {
+enum ChoreStatus: Codable, Equatable, Hashable {
     case toDo
     case inProgress
     case onPause
     case finished
     case approved
+    case cancelled(reason: String)
     
     func color() -> Color {
         switch self {
@@ -23,7 +24,7 @@ enum ChoreStatus: Codable {
             Color.blue
         case .inProgress:
             Color.orange
-        case .finished:
+        case .finished, .cancelled(reason: _):
             Color.red
         case .approved:
             Color.green
@@ -40,6 +41,8 @@ enum ChoreStatus: Codable {
             IconNames.Control.stop
         case .approved:
             IconNames.Status.check
+        case .cancelled(reason: _):
+            IconNames.Status.cancelled
         }
     }
 }
