@@ -9,8 +9,7 @@ import SwiftUI
 
 struct ChoreListingView: View {
     
-    @State private(set) var title: String = ""
-    @State private(set) var listingViewModel: ListingViewModel
+    @State private(set) var listingViewModel: ChoreListingViewModel
     
     @State private var sheetIsPresented: Bool = false
     
@@ -24,7 +23,7 @@ struct ChoreListingView: View {
                     }
                 } header: {
                     HStack {
-                         Text(title)
+                         Text(listingViewModel.title)
                                 .font(.largeTitle)
                                 .fontWeight(.bold)
                         Spacer()
@@ -40,10 +39,6 @@ struct ChoreListingView: View {
             .listRowSeparator(.hidden)
             .scrollContentBackground(.hidden)
             .listStyle(.plain)
-            .onAppear {
-                title = listingViewModel.title
-                print(listingViewModel.title)
-            }
             .sheet(isPresented: $sheetIsPresented) {
                 EditListView(
                     sheetIsPresented: $sheetIsPresented,
@@ -56,7 +51,7 @@ struct ChoreListingView: View {
 
 #Preview {
     ChoreListingView(
-        listingViewModel: ListingViewModel(
+        listingViewModel: ChoreListingViewModel(
             title: "Household chores",
             choreList: [
                 ChoreViewModel(

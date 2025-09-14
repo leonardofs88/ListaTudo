@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ListItem: View {
     
-    @Environment(ListingViewModel.self) private var listingViewModel
+    @Environment(ChoreListingViewModel.self) private var listingViewModel
     @State private(set) var choreViewModel: ChoreViewModel
     @State private var circleSize: CGFloat = 15
     @State private var circleColor = Color.secondary
@@ -87,5 +87,5 @@ struct ListItem: View {
             chore: ChoreData(id: UUID(), status: .approved, title: "Aparate")
         )
     )
-    .environment(ListingViewModel(title: "Asss"))
+    .environment(ChoreListingViewModel(title: "Asss"))
 }

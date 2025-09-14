@@ -10,22 +10,22 @@ import SwiftUI
 @MainActor
 @Observable
 class MainViewModel {
-    private(set) var lists: [ListingViewModel] = []
+    
+    private(set) var lists: [ChoreListingViewModel] = []
     
     func saveList(id: UUID? = nil, title: String, chores: [ChoreData]) {
         if let id, let index = lists.firstIndex(where: { $0.id == id }) {
             lists[index].setTitle(title)
-            chores.forEach { chore in
+            chores.lazy.forEach { chore in
                 lists[index].saveChore(
                     id: chore.id,
                     title: chore.title,
                     description: chore.description
                 )
             }
-            
         } else {
             let viewModels = chores.map { ChoreViewModel(chore: $0) }
-            let newList = ListingViewModel(
+            let newList = ChoreListingViewModel(
                 title: title,
                 choreList: viewModels
             )

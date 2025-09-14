@@ -1,5 +1,5 @@
 //
-//  ListingViewModel.swift
+//  ChoreListingViewModel.swift
 //  ChoreQuest
 //
 //  Created by Leonardo Soares on 24/08/2025.
@@ -9,10 +9,10 @@ import Foundation
 
 @MainActor
 @Observable
-class ListingViewModel: Identifiable {
+class ChoreListingViewModel: Identifiable {
     let id = UUID()
     private(set) var title: String
-    private(set) var choreList: [ChoreViewModel]
+    private(set) var choreList: [ChoreViewModel] 
 
     var onGoingChore: ChoreViewModel? {
         choreList.first { $0.chore.status == .inProgress }

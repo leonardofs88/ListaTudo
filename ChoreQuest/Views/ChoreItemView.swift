@@ -9,7 +9,7 @@ import SwiftUI
 
 struct ChoreItemView: View {
     @Environment(\.dismiss) var dismiss
-    @Environment(ListingViewModel.self) private var listingViewModel
+    @Environment(ChoreListingViewModel.self) private var listingViewModel
     @State private var title = ""
     @State private var description = ""
     @State private var titlePlaceholder = "Chore title"
@@ -84,5 +84,5 @@ struct ChoreItemView: View {
 
 #Preview {
     ChoreItemView()
-        .environment(ListingViewModel(title: ""))
+        .environment(ChoreListingViewModel(title: ""))
 }

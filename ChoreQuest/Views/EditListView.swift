@@ -21,14 +21,14 @@ struct EditListView: View {
     @Binding private(set) var sheetIsPresented: Bool
     @FocusState private var titleIsFocused
     @State private(set) var title: String = ""
-    @State private(set) var listingViewModel: ListingViewModel
+    @State private(set) var listingViewModel: ChoreListingViewModel
     @State private var choreItemSelection: ChoreItemSelection?
     @State private(set) var isNewList: Bool
     
-    init(sheetIsPresented: Binding<Bool>, listingViewModel: ListingViewModel? = nil) {
+    init(sheetIsPresented: Binding<Bool>, listingViewModel: ChoreListingViewModel? = nil) {
         self.isNewList = listingViewModel == nil
         self._sheetIsPresented = sheetIsPresented
-        self.listingViewModel = listingViewModel ?? ListingViewModel(title: "")
+        self.listingViewModel = listingViewModel ?? ChoreListingViewModel(title: "")
     }
     
     var body: some View {
