@@ -1,0 +1,37 @@
+{
+  "configurations" : [
+    {
+      "id" : "0E3B66AE-A602-40E1-997D-A462050C1546",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:ChoreQuest.xcodeproj",
+      "identifier" : "982A193C2E51FE57003F1C26",
+      "name" : "ChoreQuest"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:ChoreQuest.xcodeproj",
+        "identifier" : "982A19492E51FE58003F1C26",
+        "name" : "ChoreQuestTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:ChoreQuest.xcodeproj",
+        "identifier" : "982A19532E51FE58003F1C26",
+        "name" : "ChoreQuestUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

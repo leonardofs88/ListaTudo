@@ -27,6 +27,7 @@
 		982A193D2E51FE57003F1C26 /* ChoreQuest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChoreQuest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		982A194A2E51FE58003F1C26 /* ChoreQuestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChoreQuestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		982A19542E51FE58003F1C26 /* ChoreQuestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChoreQuestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		9842ED852E95907A0010A8F1 /* ChoreQuest.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = ChoreQuest.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -102,6 +103,7 @@
 		982A19342E51FE57003F1C26 = {
 			isa = PBXGroup;
 			children = (
+				9842ED852E95907A0010A8F1 /* ChoreQuest.xctestplan */,
 				982A193F2E51FE57003F1C26 /* ChoreQuest */,
 				982A194D2E51FE58003F1C26 /* ChoreQuestTests */,
 				982A19572E51FE58003F1C26 /* ChoreQuestUITests */,
