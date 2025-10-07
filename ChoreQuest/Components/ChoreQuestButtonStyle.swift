@@ -22,6 +22,6 @@ struct ChoreQuestButtonStyle: ButtonStyle {
             .background(backgroundColor)
             .foregroundStyle(.white)
             .clipShape(Capsule())
-            .shadow(radius: 2, x: 2, y: 2)
+            .shadow(color: .gray, radius: 2, x: 2, y: 2)
     }
 }

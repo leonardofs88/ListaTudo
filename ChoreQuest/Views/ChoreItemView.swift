@@ -8,66 +8,87 @@
 import SwiftUI
 
 struct ChoreItemView: View {
-    @Environment(\.dismiss) var dismiss
+    
     @Environment(ChoreListingViewModel.self) private var listingViewModel
+    
     @State private var title = ""
     @State private var description = ""
     @State private var titlePlaceholder = "Chore title"
     @State private var titleIsValid = true
+    
     @State private(set) var choreViewModel: ChoreViewModel?
+    
+    @Binding private(set) var isPresented: Bool
+    
+    var animation: Namespace.ID
+    
     var body: some View {
-        NavigationStack {
-            VStack() {
-                HStack {
-                    VStack(alignment: .leading) {
-                        TextField(
-                            "Chore title",
-                            text: $title,
-                            prompt: Text(titlePlaceholder)
-                                .foregroundStyle(titleIsValid ? Color(uiColor: UIColor.placeholderText) : Color.red.opacity(0.7))
-                        )
-                        TextField("Chore description", text: $description)
-                    }
-                    .padding()
-                    .background(
-                        RoundedRectangle(cornerRadius: 20)
-                            .fill(Color.white)
-                            .shadow(color: .gray, radius: 2, x: 0, y: 2))
-                    
+        VStack {
+            HStack {
+                VStack(alignment: .leading) {
+                    TextField(
+                        "Chore title",
+                        text: $title,
+                        prompt: Text(titlePlaceholder)
+                            .foregroundStyle(titleIsValid ? Color(uiColor: UIColor.placeholderText) : Color.red.opacity(0.7))
+                    )
+                    TextField("Chore description", text: $description)
                 }
                 .padding()
-                Spacer()
+                .background(
+                    RoundedRectangle(cornerRadius: 20)
+                        .fill(Color.white)
+                        .shadow(color: .gray, radius: 2, x: 0, y: 2)
+                )
             }
-            .background(Color.orange.opacity(0.5))
-            .toolbar(
-                content: {
-                    ToolbarItem(placement: .cancellationAction) {
-                        Button("Cancel", role: .destructive) {
-                            dismiss()
-                        }
-                        .buttonStyle(ChoreQuestButtonStyle(padding: 8))
+            .padding()
+            HStack {
+                Button("Cancel", role: .destructive) {
+                    withAnimation(.spring(.snappy, blendDuration: 0.3)) {
+                        isPresented = false
                     }
-                    
-                    ToolbarItem(placement: .confirmationAction) {
-                        Button("Save") {
-                            titleValidator(title)
-                            if titleIsValid {
-                                listingViewModel.saveChore(
-                                    id: choreViewModel?.id,
-                                    title: title,
-                                    description: description
-                                )
-                                dismiss()
-                            }
-                        }
-                        .buttonStyle(ChoreQuestButtonStyle(padding: 8))
-                    }
-                })
-            .onAppear {
-                if let choreViewModel {
-                    title = choreViewModel.chore.title
-                    description = choreViewModel.chore.description
                 }
+                .buttonStyle(
+                    ChoreQuestButtonStyle(
+                        padding: 8,
+                        backgroundColor: ColorNames.defaultRed
+                    )
+                )
+                Spacer()
+                Button("Save") {
+                    titleValidator(title)
+                    
+                    withAnimation(.spring(.snappy, blendDuration: 0.3)) {
+                        if titleIsValid {
+                            listingViewModel.saveChore(
+                                id: choreViewModel?.id,
+                                title: title,
+                                description: description
+                            )
+                            isPresented = false
+                        }
+                    }
+                }
+                .buttonStyle(ChoreQuestButtonStyle(padding: 8))
+            }
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 20)
+                .fill(.orange.opacity(0.5))
+                .shadow(color: .gray, radius: 2, x: 0, y: 2)
+        )
+        .transition(.move(edge: .top))
+        .matchedGeometryEffect(
+            id: "addChore",
+            in: animation,
+            anchor: .top,
+            isSource: false
+        )
+        .onAppear {
+            if let choreViewModel {
+                title = choreViewModel.chore.title
+                description = choreViewModel.chore.description
             }
         }
     }
@@ -83,6 +104,7 @@ struct ChoreItemView: View {
 }
 
 #Preview {
-    ChoreItemView()
+    @Previewable @Namespace var animation
+    ChoreItemView(isPresented: .constant(true), animation: animation)
         .environment(ChoreListingViewModel(title: ""))
 }
