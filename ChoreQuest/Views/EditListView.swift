@@ -15,19 +15,21 @@ enum ChoreItemSelection: Identifiable {
 }
 
 struct EditListView: View {
-    @Environment(\.dismiss) var dismiss
-    @Environment(MainViewModel.self) private var mainViewModel
-    @Environment(ToastViewModel.self) private var toastViewModel
-    @Binding private(set) var sheetIsPresented: Bool
+    @Environment(\.mainViewModel) private var mainViewModel
+    @Environment(\.toastViewModel) private var toastViewModel
+    
+    @Binding private(set) var isPresented: Bool
+    
     @FocusState private var titleIsFocused
+    
     @State private(set) var title: String = ""
     @State private(set) var listingViewModel: ChoreListingViewModel
     @State private var choreItemSelection: ChoreItemSelection?
     @State private(set) var isNewList: Bool
     
-    init(sheetIsPresented: Binding<Bool>, listingViewModel: ChoreListingViewModel? = nil) {
+    init(_ isPresented: Binding<Bool>, listingViewModel: ChoreListingViewModel? = nil) {
         self.isNewList = listingViewModel == nil
-        self._sheetIsPresented = sheetIsPresented
+        self._isPresented = isPresented
         self.listingViewModel = listingViewModel ?? ChoreListingViewModel(title: "")
     }
     
@@ -92,7 +94,9 @@ struct EditListView: View {
                     }
                     
                     Button {
-                        listValidator()
+                        Task {
+                            await listValidator()                        
+                        }
                     } label: {
                         HStack {
                             Image(systemName: IconNames.Objects.heardClipboard)
@@ -104,32 +108,41 @@ struct EditListView: View {
             }
             .sheet(item: $choreItemSelection) { selection in
                 let viewModel: ChoreViewModel? = switch selection {
-                case .newChore:
-                    nil
-                case .editChore(let editViewModel):
-                    editViewModel
+                    case .newChore:
+                        nil
+                    case .editChore(let editViewModel):
+                        editViewModel
                 }
                 
                 ChoreItemView(choreViewModel: viewModel)
-                        .environment(listingViewModel)
+                    .environment(listingViewModel)
             }
-            .toast(viewModel: toastViewModel)
+            .toast()
             .background(Color.yellow.opacity(0.5))
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
-                        dismiss()
+                        withAnimation(.linear(duration: 0.3)) {
+                            isPresented = false
+                        }
                     }
                     .buttonStyle(ChoreQuestButtonStyle(padding: 8))
                 }
             }
+            .transition(
+                .asymmetric(
+                    insertion: .move(edge: .bottom),
+                    removal: .move(edge: .top)
+                )
+            )
             .onAppear {
                 title = listingViewModel.title
             }
         }
     }
     
-    private func listValidator() {
+    @MainActor
+    private func listValidator() async{
         if listingViewModel.choreList.isEmpty || title.isEmpty {
             toastViewModel.setToast(
                 ToastData(
@@ -141,20 +154,18 @@ struct EditListView: View {
             toastViewModel.showToast()
         } else {
             listingViewModel.setTitle(title)
-            mainViewModel.saveList(
+            await mainViewModel.saveList(
                 id: listingViewModel.id,
                 title: title,
                 chores: listingViewModel.choreList.map({ $0.chore })
             )
-            sheetIsPresented = false
+            isPresented = false
         }
     }
 }
 
 #Preview {
-    EditListView(
-        sheetIsPresented: .constant(true)
-    )
-    .environment(MainViewModel())
-    .environment(ToastViewModel())
+    EditListView(.constant(true))
+        .environment(MainViewModel())
+        .environment(ToastViewModel())
 }

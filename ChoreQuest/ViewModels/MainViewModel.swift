@@ -7,13 +7,13 @@
 
 import SwiftUI
 
-@MainActor
 @Observable
-class MainViewModel {
+class MainViewModel: MainViewModelProtocol {
     
     private(set) var lists: [ChoreListingViewModel] = []
     
-    func saveList(id: UUID? = nil, title: String, chores: [ChoreData]) {
+    @MainActor
+    func saveList(id: UUID? = nil, title: String, chores: [ChoreData]) async {
         if let id, let index = lists.firstIndex(where: { $0.id == id }) {
             lists[index].setTitle(title)
             chores.lazy.forEach { chore in
@@ -33,7 +33,7 @@ class MainViewModel {
         }
     }
     
-    
-    func getLists() {
+    @MainActor
+    func getLists() async {
     }
 }

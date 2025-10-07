@@ -29,9 +29,36 @@
 		982A19542E51FE58003F1C26 /* ChoreQuestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChoreQuestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		9842ED782E95348E0010A8F1 /* Exceptions for "ChoreQuest" folder in "ChoreQuestTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Protocols/MainViewModelProtocol.swift,
+				Protocols/ToastViewModelProtocol.swift,
+				Views/SharedViews/Toast/ToastStyle.swift,
+			);
+			target = 982A19492E51FE58003F1C26 /* ChoreQuestTests */;
+		};
+		9842ED792E95348E0010A8F1 /* Exceptions for "ChoreQuest" folder in "ChoreQuestUITests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Protocols/MainViewModelProtocol.swift,
+				Protocols/ToastViewModelProtocol.swift,
+				Views/SharedViews/Toast/Toast.swift,
+				Views/SharedViews/Toast/ToastModifier.swift,
+				Views/SharedViews/Toast/ToastStyle.swift,
+			);
+			target = 982A19532E51FE58003F1C26 /* ChoreQuestUITests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		982A193F2E51FE57003F1C26 /* ChoreQuest */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				9842ED782E95348E0010A8F1 /* Exceptions for "ChoreQuest" folder in "ChoreQuestTests" target */,
+				9842ED792E95348E0010A8F1 /* Exceptions for "ChoreQuest" folder in "ChoreQuestUITests" target */,
+			);
 			path = ChoreQuest;
 			sourceTree = "<group>";
 		};

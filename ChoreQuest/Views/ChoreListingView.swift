@@ -41,7 +41,7 @@ struct ChoreListingView: View {
             .listStyle(.plain)
             .sheet(isPresented: $sheetIsPresented) {
                 EditListView(
-                    sheetIsPresented: $sheetIsPresented,
+                    $sheetIsPresented,
                     listingViewModel: listingViewModel
                 )
             }
