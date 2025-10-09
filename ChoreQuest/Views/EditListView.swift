@@ -16,8 +16,6 @@ enum ChoreItemSelection: Identifiable {
 
 struct EditListView: View {
     
-    @Namespace var animation
-    
     @Environment(\.mainViewModel) private var mainViewModel
     @Environment(\.toastViewModel) private var toastViewModel
     
@@ -27,8 +25,7 @@ struct EditListView: View {
     
     @State private(set) var title: String = ""
     @State private(set) var listingViewModel: ChoreListingViewModel
-    @State private var choreItemSelection: ChoreItemSelection?
-    @State private(set) var showNewChore: Bool = false
+    //    @State private var choreItemSelection: ChoreItemSelection?
     @State private(set) var isNewList: Bool
     
     init(
@@ -42,69 +39,33 @@ struct EditListView: View {
     
     var body: some View {
         NavigationStack {
-            List {
-                Section {
-                        if showNewChore {
-                            ChoreItemView(isPresented: $showNewChore, animation: animation)
-                                .environment(listingViewModel)
-                        } else {
-                            Button {
-                                withAnimation(.spring(.snappy, blendDuration: 0.3)) {
-                                    showNewChore.toggle()
-                                }
-                            } label: {
-                                Label("Add chore", systemImage: IconNames.Control.plus)
-                            }
-                            .transition(.move(edge: .bottom))
-                            .matchedGeometryEffect(
-                                id: "addChore",
-                                in: animation,
-                                properties: .size,
-                                isSource: false
-                            )
-                        }
+            VStack {
+                TextField("Add title", text: $title)
+                    .focused($titleIsFocused)
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .padding()
+                
+                ChoreListItemView(choreItemType: .add)
+                    .padding()
+                
+                ScrollView {
                     
-                    Section {
-                        ForEach(listingViewModel.choreList, id: \.chore.id) { item in
-                            VStack(alignment: .leading) {
-                                Text(item.chore.title)
-                                if !item.chore.description.isEmpty {
-                                    Text(item.chore.description)
-                                        .font(.subheadline)
-                                }
-                            }
-                            .swipeActions {
-                                Button {
-                                    choreItemSelection = .editChore(item)
-                                } label: {
-                                    Image(systemName: IconNames.Objects.pencilSquare)
-                                }.tint(.purple)
-                            }
-                        }
-                    }
-                } header: {
-                    HStack {
-                        TextField("Add title", text: $title)
-                            .focused($titleIsFocused)
-                            .font(.title)
+                    VStack {
+                        Text("Chore List")
+                            .foregroundStyle(Color.greenFont)
+                            .font(.headline)
                             .fontWeight(.bold)
+                            .frame(maxWidth:.infinity, alignment: .leading)
+                        ForEach(listingViewModel.choreList, id: \.chore.id) { item in
+                            ChoreListItemView(choreItemType: .info(item))
+                        }
                     }
                 }
+                .padding()
             }
-            .scrollContentBackground(.hidden)
-            //            .sheet(item: $choreItemSelection) { selection in
-            //                let viewModel: ChoreViewModel? = switch selection {
-            //                    case .newChore:
-            //                        nil
-            //                    case .editChore(let editViewModel):
-            //                        editViewModel
-            //                }
-            //
-            //                ChoreItemView(choreViewModel: viewModel, isPresented: $showNewChore)
-            //                    .environment(listingViewModel)
-            //            }
+            .background(.defaultGreen.opacity(0.3))
             .toast()
-            .background(Color.yellow.opacity(0.5))
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") {
@@ -127,10 +88,9 @@ struct EditListView: View {
                         }
                         .buttonStyle(
                             ChoreQuestButtonStyle(
-                                backgroundColor: ColorNames.defaultRed
+                                backgroundColor: .defaultRed
                             )
                         )
-                        
                     }
                     
                     Button {
@@ -156,10 +116,11 @@ struct EditListView: View {
                 title = listingViewModel.title
             }
         }
+        .environment(listingViewModel)
     }
     
     @MainActor
-    private func listValidator() async{
+    private func listValidator() async {
         if listingViewModel.choreList.isEmpty || title.isEmpty {
             toastViewModel.setToast(
                 ToastData(

@@ -12,6 +12,7 @@ import Foundation
 class ChoreViewModel: Identifiable {
     let id: UUID
     private(set) var chore: ChoreData
+    
     init(chore: ChoreData) {
         self.chore = chore
         self.id = chore.id

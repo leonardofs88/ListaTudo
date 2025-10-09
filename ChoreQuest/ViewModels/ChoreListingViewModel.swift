@@ -30,8 +30,14 @@ class ChoreListingViewModel: Identifiable {
     func setChoreList(_ list: [ChoreViewModel]) {
         choreList = list
     }
-
-    func saveChore(id: UUID? = nil, title: String, description: String = "") {
+    
+    func removeChore(id: UUID) async {
+        if let index = choreList.firstIndex(where: { $0.id == id }) {
+            choreList.remove(at: index)
+        }
+    }
+    
+    func saveChore(id: UUID? = nil, title: String, description: String = "") async {
         if let id, let index = choreList.firstIndex(where: { $0.id == id }) {
             choreList[index].setTitle(title)
             choreList[index].setDescription(description)

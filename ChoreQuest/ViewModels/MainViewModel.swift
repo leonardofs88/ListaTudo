@@ -17,11 +17,13 @@ class MainViewModel: MainViewModelProtocol {
         if let id, let index = lists.firstIndex(where: { $0.id == id }) {
             lists[index].setTitle(title)
             chores.lazy.forEach { chore in
-                lists[index].saveChore(
-                    id: chore.id,
-                    title: chore.title,
-                    description: chore.description
-                )
+                Task {
+                    await lists[index].saveChore(
+                        id: chore.id,
+                        title: chore.title,
+                        description: chore.description
+                    )
+                }
             }
         } else {
             let viewModels = chores.map { ChoreViewModel(chore: $0) }

@@ -11,7 +11,7 @@ struct ChoreQuestButtonStyle: ButtonStyle {
     @State private(set) var padding: CGFloat
     @State private(set) var backgroundColor: Color
     
-    init(padding: CGFloat = 12, backgroundColor: Color = ColorNames.defaultBlue) {
+    init(padding: CGFloat = 12, backgroundColor: Color = .defaultBlue) {
         self.padding = padding
         self.backgroundColor = backgroundColor
     }
