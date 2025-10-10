@@ -24,17 +24,17 @@ struct EditListView: View {
     @FocusState private var titleIsFocused
     
     @State private(set) var title: String = ""
-    @State private(set) var listingViewModel: ChoreListingViewModel
+    @State private(set) var listingViewModel: ListingCardViewModel
     //    @State private var choreItemSelection: ChoreItemSelection?
     @State private(set) var isNewList: Bool
     
     init(
         _ isPresented: Binding<Bool>,
-        listingViewModel: ChoreListingViewModel? = nil
+        listingViewModel: ListingCardViewModel? = nil
     ) {
         self.isNewList = listingViewModel == nil
         self._isPresented = isPresented
-        self.listingViewModel = listingViewModel ?? ChoreListingViewModel(title: "")
+        self.listingViewModel = listingViewModel ?? ListingCardViewModel(title: "")
     }
     
     var body: some View {
@@ -58,7 +58,8 @@ struct EditListView: View {
                             .fontWeight(.bold)
                             .frame(maxWidth:.infinity, alignment: .leading)
                         ForEach(listingViewModel.choreList, id: \.chore.id) { item in
-                            ChoreListItemView(choreItemType: .info(item))
+                            ChoreListItemView(choreItemType: .info(item,
+                                                                   isEditable: true))
                         }
                     }
                 }

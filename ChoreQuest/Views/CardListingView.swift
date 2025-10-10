@@ -33,8 +33,8 @@ struct CardListingView: View {
                                     index,
                                     item in
                                     // TODO: - Adjustment for cards on portrait mode and iPad
-                                    ChoreListingView(
-                                        listingViewModel: item
+                                    ListingCardView(
+                                        listingCardViewModel: item
                                     )
                                     .frame(
                                         width: proxy.size.width * 0.94,

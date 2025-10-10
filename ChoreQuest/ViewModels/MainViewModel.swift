@@ -10,7 +10,7 @@ import SwiftUI
 @Observable
 class MainViewModel: MainViewModelProtocol {
     
-    private(set) var lists: [ChoreListingViewModel] = []
+    private(set) var lists: [ListingCardViewModel] = []
     
     @MainActor
     func saveList(id: UUID? = nil, title: String, chores: [ChoreData]) async {
@@ -27,7 +27,7 @@ class MainViewModel: MainViewModelProtocol {
             }
         } else {
             let viewModels = chores.map { ChoreViewModel(chore: $0) }
-            let newList = ChoreListingViewModel(
+            let newList = ListingCardViewModel(
                 title: title,
                 choreList: viewModels
             )

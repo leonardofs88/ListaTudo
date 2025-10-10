@@ -1,5 +1,5 @@
 //
-//  ChoreListingViewModel.swift
+//  ListingCardViewModel.swift
 //  ChoreQuest
 //
 //  Created by Leonardo Soares on 24/08/2025.
@@ -7,9 +7,8 @@
 
 import Foundation
 
-@MainActor
 @Observable
-class ChoreListingViewModel: Identifiable {
+class ListingCardViewModel: ListingCardViewModelProtocol {
     let id = UUID()
     private(set) var title: String
     private(set) var choreList: [ChoreViewModel] 
@@ -31,9 +30,11 @@ class ChoreListingViewModel: Identifiable {
         choreList = list
     }
     
-    func removeChore(id: UUID) async {
+    func removeChore(id: UUID) {
         if let index = choreList.firstIndex(where: { $0.id == id }) {
-            choreList.remove(at: index)
+            Task { @MainActor in
+                choreList.remove(at: index)
+            }
         }
     }
     
@@ -53,7 +54,7 @@ class ChoreListingViewModel: Identifiable {
         }
     }
     
-    func pauseOnGoingChore() {
+    func pauseOnGoingChore() async {
         choreList = choreList.map({ item in
             if item.chore.status == .inProgress {
                 item.setStatus(.onPause)

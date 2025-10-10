@@ -6,10 +6,10 @@
 //
 
 import Foundation
+import SwiftUI
 
-@MainActor
 @Observable
-class ChoreViewModel: Identifiable {
+class ChoreViewModel: ChoreViewModelProtocol {
     let id: UUID
     private(set) var chore: ChoreData
     
@@ -22,14 +22,14 @@ class ChoreViewModel: Identifiable {
         chore.status = value
     }
     
-    func changeStatus() {
-        chore.status = switch chore.status {
-        case .toDo, .onPause:
-                .inProgress
-        case .inProgress:
-                .onPause
-        default:
-            chore.status
+    func changeStatus() async {
+        self.chore.status = switch chore.status {
+            case .toDo, .onPause:
+                    .inProgress
+            case .inProgress:
+                    .onPause
+            default:
+                self.chore.status
         }
     }
     
@@ -39,5 +39,16 @@ class ChoreViewModel: Identifiable {
     
     func setDescription(_ description: String) {
         chore.description = description
+    }
+}
+
+struct ChoreViewModelKey: EnvironmentKey {
+    static let defaultValue: (any ChoreViewModelProtocol)? = nil
+}
+
+extension EnvironmentValues {
+    var choreViewModel: (any ChoreViewModelProtocol)? {
+        get { self[ChoreViewModelKey.self] }
+        set { self[ChoreViewModelKey.self] = newValue }
     }
 }

@@ -9,12 +9,14 @@ import SwiftUI
 
 struct ChoreListItemView: View {
     
-    @Environment(ChoreListingViewModel.self) private var listingViewModel
+    @Environment(ListingCardViewModel.self) private var listingViewModel
     
     @State private var title = ""
     @State private var description = ""
     @State private var titlePlaceholder = "Chore title"
     @State private var titleIsValid = true
+    @State private var showAlert = false
+    
     @FocusState private var titleFocusState: Bool
     
     @State private(set) var choreItemType: ChoreListItemType
@@ -28,60 +30,34 @@ struct ChoreListItemView: View {
                         description: $description,
                         titlePlaceholder: $titlePlaceholder,
                         titleIsValid: $titleIsValid,
-                        cancelAction: {
-                            
-                            title = ""
-                            description = ""
-                            
-                            withAnimation(.smooth) {
-                                choreItemType = .info(choreViewModel)
-                            }
-                        },
                         saveAction: {
                             Task {
                                 titleValidator(title)
                                 await saveAction()
                             }
                         },
+                        cancelAction: {
+                            title = ""
+                            description = ""
+                            
+                            withAnimation(.bouncy) {
+                                choreItemType = .info(choreViewModel, isEditable: true)
+                            }
+                        },
                         deleteAction: {
-                            Task {
-                                await listingViewModel.removeChore(id: choreViewModel.id)
+                            withAnimation {
+                                listingViewModel.removeChore(id: choreViewModel.id)
                             }
                         })
                     .onAppear {
                         title = choreViewModel.chore.title
                         description = choreViewModel.chore.description
                     }
-                case .info(let choreViewModel):
-                    HStack {
-                        VStack(alignment: .leading) {
-                            Text(choreViewModel.chore.title)
-                                .font(.headline)
-                                .fontWeight(.bold)
-                            if !choreViewModel.chore.description.isEmpty {
-                                Text(choreViewModel.chore.description)
-                                    .font(.subheadline)
-                                    .fontWeight(.bold)
-                            }
-                        }
-                        Spacer()
-                            Button {
-                                withAnimation(.smooth) {
-                                    choreItemType = .edit(choreViewModel)
-                                }
-                            } label: {
-                                Image(systemName: IconNames.Objects.pencilSquare)
-                            }
-                            .buttonStyle(ChoreQuestButtonStyle(backgroundColor: .greenFont))
-                    }
-                    .foregroundStyle(.greenFont)
-                    .padding()
-                    .background(
-                        RoundedRectangle(cornerRadius: 20)
-                            .fill(.defaultGreen)
-                            .shadow(color: .gray, radius: 2, x: 0, y: 2)
+                case .info(let choreViewModel, let isEditable):
+                    ChoreInfoView(
+                        choreViewModel: choreViewModel,
+                        isEditable: isEditable
                     )
-                    .frame(maxWidth: .infinity, alignment: .leading)
                 case .add:
                     HStack {
                         Button {
@@ -101,6 +77,12 @@ struct ChoreListItemView: View {
                         description: $description,
                         titlePlaceholder: $titlePlaceholder,
                         titleIsValid: $titleIsValid,
+                        saveAction: {
+                            Task {
+                                titleValidator(title)
+                                await saveAction()
+                            }
+                        },
                         cancelAction: {
                             title = ""
                             description = ""
@@ -108,14 +90,29 @@ struct ChoreListItemView: View {
                             withAnimation(.bouncy) {
                                 choreItemType = .add
                             }
-                        },
-                        saveAction: {
-                            Task {
-                                titleValidator(title)
-                                await saveAction()
-                            }
                         })
             }
+        }
+        .alert(
+            "You already have a chore in progress.",
+            isPresented: $showAlert
+        ) {
+            Button(role: .cancel, action: {
+                
+            }, label: {
+                Text("Cancel")
+            })
+            Button {
+//                statusButtonTapped.toggle()
+//                choreViewModel.changeStatus()
+//                Task {
+//                    await listingViewModel.pauseOnGoingChore()
+//                }
+            } label: {
+                Text("Continue")
+            }
+        } message: {
+            Text("If you continue, your current task will be paused for the new one take place.")
         }
     }
     
@@ -161,7 +158,7 @@ struct ChoreListItemView: View {
 
 enum ChoreListItemType {
     case edit(ChoreViewModel)
-    case info(ChoreViewModel)
+    case info(ChoreViewModel, isEditable: Bool = false)
     case add
     case adding
 }
@@ -170,13 +167,41 @@ enum ChoreListItemType {
     Group {
         ChoreListItemView(
             choreItemType: .edit(
-                ChoreViewModel(chore: ChoreData(id: UUID(), status: .toDo, title: "Preview", description: "Preview Description"))
+                ChoreViewModel(
+                    chore: ChoreData(
+                        id: UUID(),
+                        status: .toDo,
+                        title: "Preview",
+                        description: "Preview Description"
+                    )
+                )
             )
         )
         
         ChoreListItemView(
             choreItemType: .info(
-                ChoreViewModel(chore: ChoreData(id: UUID(), status: .toDo, title: "Preview", description: "Preview Description"))
+                ChoreViewModel(
+                    chore: ChoreData(
+                        id: UUID(),
+                        status: .toDo,
+                        title: "Preview",
+                        description: "Preview Description"
+                    )
+                ),
+                isEditable: true
+            )
+        )
+        
+        ChoreListItemView(
+            choreItemType: .info(
+                ChoreViewModel(
+                    chore: ChoreData(
+                        id: UUID(),
+                        status: .toDo,
+                        title: "Preview",
+                        description: "Preview Description"
+                    )
+                )
             )
         )
         
@@ -189,5 +214,5 @@ enum ChoreListItemType {
         )
         
     }
-    .environment(ChoreListingViewModel(title: "Preview"))
+    .environment(ListingCardViewModel(title: "Preview"))
 }

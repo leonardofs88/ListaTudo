@@ -23,5 +23,10 @@ struct ChoreQuestButtonStyle: ButtonStyle {
             .foregroundStyle(.white)
             .clipShape(Capsule())
             .shadow(color: .gray, radius: 2, x: 2, y: 2)
+            .scaleEffect(configuration.isPressed ? 1.2 : 1)
+            .animation(
+                .spring(duration: 0.2,bounce: 0.7),
+                value: configuration.isPressed
+            )
     }
 }

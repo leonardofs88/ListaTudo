@@ -1,5 +1,5 @@
 //
-//  ChoreListingView.swift
+//  ListingCardView.swift
 //  ChoreQuest
 //
 //  Created by Leonardo Soares on 24/08/2025.
@@ -7,51 +7,47 @@
 
 import SwiftUI
 
-struct ChoreListingView: View {
+struct ListingCardView<VM: ListingCardViewModel>: View {
     
-    @State private(set) var listingViewModel: ChoreListingViewModel
+    @State private(set) var listingCardViewModel: VM
     
     @State private var sheetIsPresented: Bool = false
     
     var body: some View {
-        NavigationStack  {
-            List {
-                Section {
-                    ForEach(listingViewModel.choreList, id: \.chore.id) { item in
-                        ListItem(choreViewModel: item)
-                            .environment(listingViewModel)
-                    }
-                } header: {
-                    HStack {
-                         Text(listingViewModel.title)
-                                .font(.largeTitle)
-                                .fontWeight(.bold)
-                        Spacer()
-                        Button {
-                            sheetIsPresented = true
-                        } label: {
-                            Image(systemName: IconNames.Objects.pencilSquare)
-                        }
-                        .buttonStyle(ChoreQuestButtonStyle())
-                    }
+        VStack {
+            HStack {
+                Text(listingCardViewModel.title)
+                    .font(.largeTitle)
+                    .fontWeight(.bold)
+                Spacer()
+                Button {
+                    sheetIsPresented = true
+                } label: {
+                    Image(systemName: IconNames.Objects.pencilSquare)
+                }
+                .buttonStyle(ChoreQuestButtonStyle())
+            }
+            
+            ScrollView {
+                ForEach(listingCardViewModel.choreList, id: \.chore.id) { item in
+                    ChoreListItemView(choreItemType: .info(item, isEditable: false))
                 }
             }
-            .listRowSeparator(.hidden)
-            .scrollContentBackground(.hidden)
-            .listStyle(.plain)
-            .sheet(isPresented: $sheetIsPresented) {
-                EditListView(
-                    $sheetIsPresented,
-                    listingViewModel: listingViewModel
-                )
-            }
+        }
+        .environment(listingCardViewModel)
+        .padding()
+        .sheet(isPresented: $sheetIsPresented) {
+            EditListView(
+                $sheetIsPresented,
+                listingViewModel: listingCardViewModel
+            )
         }
     }
 }
 
 #Preview {
-    ChoreListingView(
-        listingViewModel: ChoreListingViewModel(
+    ListingCardView(
+        listingCardViewModel: ListingCardViewModel(
             title: "Household chores",
             choreList: [
                 ChoreViewModel(

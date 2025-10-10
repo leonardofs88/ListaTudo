@@ -13,8 +13,8 @@ struct EditChoreListItem: View {
     @Binding private(set) var titlePlaceholder: String
     @Binding private(set) var titleIsValid: Bool
     
-    private(set) var cancelAction: () -> Void
     private(set) var saveAction: () -> Void
+    private(set) var cancelAction: () -> Void
     private(set) var deleteAction: (() -> Void)?
     
     var body: some View {
@@ -26,9 +26,9 @@ struct EditChoreListItem: View {
                 titleIsValid: $titleIsValid
             )
             
-            BottomBarView(
-                cancelAction: cancelAction,
+            EditActionBarView(
                 saveAction: saveAction,
+                cancelAction: cancelAction,
                 deleteAction: deleteAction)
         }
         .padding(10)
@@ -45,11 +45,12 @@ struct EditChoreListItem: View {
         title: .constant("title"),
         description: .constant("description"),
         titlePlaceholder: .constant("Chore Title"),
-        titleIsValid: .constant(true)
-    ) {
-        print("Cancel")
-    } saveAction: {
-        print("Save")
-    }
-    
+        titleIsValid: .constant(true),
+        saveAction: {
+            print("Save")
+        },
+        cancelAction: {
+            print("Cancel")
+        }
+    )
 }
