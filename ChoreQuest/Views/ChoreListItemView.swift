@@ -39,7 +39,6 @@ struct ChoreListItemView: View {
                         cancelAction: {
                             title = ""
                             description = ""
-                            
                             withAnimation(.bouncy) {
                                 choreItemType = .info(choreViewModel, isEditable: true)
                             }

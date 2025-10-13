@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "982A193C2E51FE57003F1C26"
-               BuildableName = "ChoreQuest.app"
-               BlueprintName = "ChoreQuest"
-               ReferencedContainer = "container:ChoreQuest.xcodeproj">
+               BuildableName = "GuildChores.app"
+               BlueprintName = "GuildChores"
+               ReferencedContainer = "container:GuildChores.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -36,9 +36,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "982A19492E51FE58003F1C26"
-               BuildableName = "ChoreQuestTests.xctest"
-               BlueprintName = "ChoreQuestTests"
-               ReferencedContainer = "container:ChoreQuest.xcodeproj">
+               BuildableName = "GuildChoresTests.xctest"
+               BlueprintName = "GuildChoresTests"
+               ReferencedContainer = "container:GuildChores.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "982A19532E51FE58003F1C26"
-               BuildableName = "ChoreQuestUITests.xctest"
-               BlueprintName = "ChoreQuestUITests"
-               ReferencedContainer = "container:ChoreQuest.xcodeproj">
+               BuildableName = "GuildChoresUITests.xctest"
+               BlueprintName = "GuildChoresUITests"
+               ReferencedContainer = "container:GuildChores.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -69,9 +69,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "982A193C2E51FE57003F1C26"
-            BuildableName = "ChoreQuest.app"
-            BlueprintName = "ChoreQuest"
-            ReferencedContainer = "container:ChoreQuest.xcodeproj">
+            BuildableName = "GuildChores.app"
+            BlueprintName = "GuildChores"
+            ReferencedContainer = "container:GuildChores.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -86,9 +86,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "982A193C2E51FE57003F1C26"
-            BuildableName = "ChoreQuest.app"
-            BlueprintName = "ChoreQuest"
-            ReferencedContainer = "container:ChoreQuest.xcodeproj">
+            BuildableName = "GuildChores.app"
+            BlueprintName = "GuildChores"
+            ReferencedContainer = "container:GuildChores.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

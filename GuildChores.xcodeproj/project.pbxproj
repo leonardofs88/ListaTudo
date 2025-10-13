@@ -24,14 +24,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		982A193D2E51FE57003F1C26 /* ChoreQuest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChoreQuest.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		982A194A2E51FE58003F1C26 /* ChoreQuestTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChoreQuestTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		982A19542E51FE58003F1C26 /* ChoreQuestUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ChoreQuestUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		982A193D2E51FE57003F1C26 /* GuildChores.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GuildChores.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		982A194A2E51FE58003F1C26 /* GuildChoresTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GuildChoresTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		982A19542E51FE58003F1C26 /* GuildChoresUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GuildChoresUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9842ED852E95907A0010A8F1 /* ChoreQuest.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = ChoreQuest.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		9842ED782E95348E0010A8F1 /* Exceptions for "ChoreQuest" folder in "ChoreQuestTests" target */ = {
+		9842ED782E95348E0010A8F1 /* Exceptions for "ChoreQuest" folder in "GuildChoresTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Protocols/ChoreViewModelProtocol.swift,
@@ -40,9 +40,9 @@
 				Protocols/ToastViewModelProtocol.swift,
 				Views/SharedViews/Toast/ToastStyle.swift,
 			);
-			target = 982A19492E51FE58003F1C26 /* ChoreQuestTests */;
+			target = 982A19492E51FE58003F1C26 /* GuildChoresTests */;
 		};
-		9842ED792E95348E0010A8F1 /* Exceptions for "ChoreQuest" folder in "ChoreQuestUITests" target */ = {
+		9842ED792E95348E0010A8F1 /* Exceptions for "ChoreQuest" folder in "GuildChoresUITests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Protocols/ChoreViewModelProtocol.swift,
@@ -53,7 +53,7 @@
 				Views/SharedViews/Toast/ToastModifier.swift,
 				Views/SharedViews/Toast/ToastStyle.swift,
 			);
-			target = 982A19532E51FE58003F1C26 /* ChoreQuestUITests */;
+			target = 982A19532E51FE58003F1C26 /* GuildChoresUITests */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -61,8 +61,8 @@
 		982A193F2E51FE57003F1C26 /* ChoreQuest */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
-				9842ED782E95348E0010A8F1 /* Exceptions for "ChoreQuest" folder in "ChoreQuestTests" target */,
-				9842ED792E95348E0010A8F1 /* Exceptions for "ChoreQuest" folder in "ChoreQuestUITests" target */,
+				9842ED782E95348E0010A8F1 /* Exceptions for "ChoreQuest" folder in "GuildChoresTests" target */,
+				9842ED792E95348E0010A8F1 /* Exceptions for "ChoreQuest" folder in "GuildChoresUITests" target */,
 			);
 			path = ChoreQuest;
 			sourceTree = "<group>";
@@ -118,9 +118,9 @@
 		982A193E2E51FE57003F1C26 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				982A193D2E51FE57003F1C26 /* ChoreQuest.app */,
-				982A194A2E51FE58003F1C26 /* ChoreQuestTests.xctest */,
-				982A19542E51FE58003F1C26 /* ChoreQuestUITests.xctest */,
+				982A193D2E51FE57003F1C26 /* GuildChores.app */,
+				982A194A2E51FE58003F1C26 /* GuildChoresTests.xctest */,
+				982A19542E51FE58003F1C26 /* GuildChoresUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -128,9 +128,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		982A193C2E51FE57003F1C26 /* ChoreQuest */ = {
+		982A193C2E51FE57003F1C26 /* GuildChores */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 982A195E2E51FE58003F1C26 /* Build configuration list for PBXNativeTarget "ChoreQuest" */;
+			buildConfigurationList = 982A195E2E51FE58003F1C26 /* Build configuration list for PBXNativeTarget "GuildChores" */;
 			buildPhases = (
 				982A19392E51FE57003F1C26 /* Sources */,
 				982A193A2E51FE57003F1C26 /* Frameworks */,
@@ -143,16 +143,16 @@
 			fileSystemSynchronizedGroups = (
 				982A193F2E51FE57003F1C26 /* ChoreQuest */,
 			);
-			name = ChoreQuest;
+			name = GuildChores;
 			packageProductDependencies = (
 			);
 			productName = ListaTudo;
-			productReference = 982A193D2E51FE57003F1C26 /* ChoreQuest.app */;
+			productReference = 982A193D2E51FE57003F1C26 /* GuildChores.app */;
 			productType = "com.apple.product-type.application";
 		};
-		982A19492E51FE58003F1C26 /* ChoreQuestTests */ = {
+		982A19492E51FE58003F1C26 /* GuildChoresTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 982A19612E51FE58003F1C26 /* Build configuration list for PBXNativeTarget "ChoreQuestTests" */;
+			buildConfigurationList = 982A19612E51FE58003F1C26 /* Build configuration list for PBXNativeTarget "GuildChoresTests" */;
 			buildPhases = (
 				982A19462E51FE58003F1C26 /* Sources */,
 				982A19472E51FE58003F1C26 /* Frameworks */,
@@ -166,16 +166,16 @@
 			fileSystemSynchronizedGroups = (
 				982A194D2E51FE58003F1C26 /* ChoreQuestTests */,
 			);
-			name = ChoreQuestTests;
+			name = GuildChoresTests;
 			packageProductDependencies = (
 			);
 			productName = ListaTudoTests;
-			productReference = 982A194A2E51FE58003F1C26 /* ChoreQuestTests.xctest */;
+			productReference = 982A194A2E51FE58003F1C26 /* GuildChoresTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		982A19532E51FE58003F1C26 /* ChoreQuestUITests */ = {
+		982A19532E51FE58003F1C26 /* GuildChoresUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 982A19642E51FE58003F1C26 /* Build configuration list for PBXNativeTarget "ChoreQuestUITests" */;
+			buildConfigurationList = 982A19642E51FE58003F1C26 /* Build configuration list for PBXNativeTarget "GuildChoresUITests" */;
 			buildPhases = (
 				982A19502E51FE58003F1C26 /* Sources */,
 				982A19512E51FE58003F1C26 /* Frameworks */,
@@ -189,11 +189,11 @@
 			fileSystemSynchronizedGroups = (
 				982A19572E51FE58003F1C26 /* ChoreQuestUITests */,
 			);
-			name = ChoreQuestUITests;
+			name = GuildChoresUITests;
 			packageProductDependencies = (
 			);
 			productName = ListaTudoUITests;
-			productReference = 982A19542E51FE58003F1C26 /* ChoreQuestUITests.xctest */;
+			productReference = 982A19542E51FE58003F1C26 /* GuildChoresUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -219,7 +219,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 982A19382E51FE57003F1C26 /* Build configuration list for PBXProject "ChoreQuest" */;
+			buildConfigurationList = 982A19382E51FE57003F1C26 /* Build configuration list for PBXProject "GuildChores" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -233,9 +233,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				982A193C2E51FE57003F1C26 /* ChoreQuest */,
-				982A19492E51FE58003F1C26 /* ChoreQuestTests */,
-				982A19532E51FE58003F1C26 /* ChoreQuestUITests */,
+				982A193C2E51FE57003F1C26 /* GuildChores */,
+				982A19492E51FE58003F1C26 /* GuildChoresTests */,
+				982A19532E51FE58003F1C26 /* GuildChoresUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -291,12 +291,12 @@
 /* Begin PBXTargetDependency section */
 		982A194C2E51FE58003F1C26 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 982A193C2E51FE57003F1C26 /* ChoreQuest */;
+			target = 982A193C2E51FE57003F1C26 /* GuildChores */;
 			targetProxy = 982A194B2E51FE58003F1C26 /* PBXContainerItemProxy */;
 		};
 		982A19562E51FE58003F1C26 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 982A193C2E51FE57003F1C26 /* ChoreQuest */;
+			target = 982A193C2E51FE57003F1C26 /* GuildChores */;
 			targetProxy = 982A19552E51FE58003F1C26 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -438,6 +438,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -466,6 +467,7 @@
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 17.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -494,7 +496,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChoreQuest.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ChoreQuest";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GuildChores.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GuildChores";
 			};
 			name = Debug;
 		};
@@ -513,7 +515,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ChoreQuest.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ChoreQuest";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/GuildChores.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/GuildChores";
 			};
 			name = Release;
 		};
@@ -554,7 +556,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		982A19382E51FE57003F1C26 /* Build configuration list for PBXProject "ChoreQuest" */ = {
+		982A19382E51FE57003F1C26 /* Build configuration list for PBXProject "GuildChores" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				982A195C2E51FE58003F1C26 /* Debug */,
@@ -563,7 +565,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		982A195E2E51FE58003F1C26 /* Build configuration list for PBXNativeTarget "ChoreQuest" */ = {
+		982A195E2E51FE58003F1C26 /* Build configuration list for PBXNativeTarget "GuildChores" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				982A195F2E51FE58003F1C26 /* Debug */,
@@ -572,7 +574,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		982A19612E51FE58003F1C26 /* Build configuration list for PBXNativeTarget "ChoreQuestTests" */ = {
+		982A19612E51FE58003F1C26 /* Build configuration list for PBXNativeTarget "GuildChoresTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				982A19622E51FE58003F1C26 /* Debug */,
@@ -581,7 +583,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		982A19642E51FE58003F1C26 /* Build configuration list for PBXNativeTarget "ChoreQuestUITests" */ = {
+		982A19642E51FE58003F1C26 /* Build configuration list for PBXNativeTarget "GuildChoresUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				982A19652E51FE58003F1C26 /* Debug */,

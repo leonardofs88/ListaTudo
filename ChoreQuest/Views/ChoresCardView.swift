@@ -1,5 +1,5 @@
 //
-//  ListingCardView.swift
+//  ChoresCardView.swift
 //  ChoreQuest
 //
 //  Created by Leonardo Soares on 24/08/2025.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ListingCardView<VM: ListingCardViewModel>: View {
+struct ChoresCardView<VM: ListingCardViewModel>: View {
     
     @State private(set) var listingCardViewModel: VM
     
@@ -29,8 +29,13 @@ struct ListingCardView<VM: ListingCardViewModel>: View {
             }
             
             ScrollView {
-                ForEach(listingCardViewModel.choreList, id: \.chore.id) { item in
-                    ChoreListItemView(choreItemType: .info(item, isEditable: false))
+                LazyVStack {
+                    ForEach(listingCardViewModel.choreList, id: \.id) { item in
+                        ChoreInfoView(
+                            choreViewModel: item,
+                            isEditable: false
+                        )
+                    }
                 }
             }
         }
@@ -46,7 +51,7 @@ struct ListingCardView<VM: ListingCardViewModel>: View {
 }
 
 #Preview {
-    ListingCardView(
+    ChoresCardView(
         listingCardViewModel: ListingCardViewModel(
             title: "Household chores",
             choreList: [

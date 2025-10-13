@@ -33,7 +33,7 @@ struct CardListingView: View {
                                     index,
                                     item in
                                     // TODO: - Adjustment for cards on portrait mode and iPad
-                                    ListingCardView(
+                                    ChoresCardView(
                                         listingCardViewModel: item
                                     )
                                     .frame(
@@ -96,4 +96,9 @@ struct CardListingView: View {
                 .buttonStyle(ChoreQuestButtonStyle())
             }
     }
+}
+
+#Preview {
+    @Previewable @Namespace var animation
+    CardListingView(editViewPresented: .constant(false), animation: animation)
 }

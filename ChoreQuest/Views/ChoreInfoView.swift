@@ -9,8 +9,10 @@ import SwiftUI
 
 struct ChoreInfoView: View {
     
-    @State var choreViewModel: ChoreViewModel
-    var isEditable: Bool
+    private(set) var choreViewModel: ChoreViewModel
+    private(set) var isEditable: Bool
+    
+    @State private var tapped = false
     
     var body: some View {
             HStack {
@@ -22,17 +24,22 @@ struct ChoreInfoView: View {
 ////                                       showAlert = true
 //                            } else {
 ////                                        statusButtonTapped.toggle()
+                    tapped = true
+                    withAnimation {
+                        tapped = false
+                    }
+                    
                     Task {
                         await choreViewModel.changeStatus()
-                        print(("icon: ", choreViewModel.chore.status.icon(), " color: ", choreViewModel.chore.status.color()))
                     }
-//                            }
-//                        }
                 } label: {
                     Image(systemName: choreViewModel.chore.status.icon())
                 }
                 .frame(width: 40, height: 40)
-                .buttonStyle(ChoreQuestButtonStyle(backgroundColor: choreViewModel.chore.status.color()))
+                .foregroundStyle(Color.white)
+                .background(choreViewModel.chore.status.color())
+                .clipShape(Circle())
+                .scaleEffect(tapped ? 1.3 : 1)
                 
                 VStack(alignment: .leading) {
                     Text(choreViewModel.chore.title)
