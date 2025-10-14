@@ -7,7 +7,6 @@
 
 import Foundation
 
-@MainActor
 protocol ChoreViewModelProtocol: Identifiable {
     var id: UUID { get }
     var chore: ChoreData { get }
@@ -16,4 +15,8 @@ protocol ChoreViewModelProtocol: Identifiable {
     func changeStatus() async
     func setTitle(_ title: String)
     func setDescription(_ description: String)
+}
+
+extension ChoreViewModelProtocol {
+    var isOngoingChore: Bool { chore.status != .approved || chore.status != .finished }
 }

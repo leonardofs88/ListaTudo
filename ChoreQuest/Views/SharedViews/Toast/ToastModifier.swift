@@ -14,12 +14,12 @@ struct ToastModifier: ViewModifier {
     func body(content: Content) -> some View {
         content
             .overlay(
-              ZStack {
-                  if toastViewModel.isToastPresented {
-                      Toast()
-                      .offset(y: -50)
-                  }
-              }.animation(.spring(), value: toastViewModel.isToastPresented)
+                ZStack {
+                    if toastViewModel.isToastPresented {
+                        Toast()
+                            .offset(y: -50)
+                    }
+                }.animation(.spring(), value: toastViewModel.isToastPresented)
             )
             .onChange(of: toastViewModel.isToastPresented) { oldValue, value in
                 if value {
@@ -30,26 +30,26 @@ struct ToastModifier: ViewModifier {
     
     private func showToast() {
         UIImpactFeedbackGenerator(style: .light)
-          .impactOccurred()
+            .impactOccurred()
         
         if toastViewModel.toastData.duration > 0 {
-          workItem?.cancel()
-          
-          let task = DispatchWorkItem {
-            dismissToast()
-          }
-          
-          workItem = task
-          DispatchQueue.main.asyncAfter(deadline: .now() + toastViewModel.toastData.duration, execute: task)
+            workItem?.cancel()
+            
+            let task = DispatchWorkItem {
+                dismissToast()
+            }
+            
+            workItem = task
+            DispatchQueue.main.asyncAfter(deadline: .now() + toastViewModel.toastData.duration, execute: task)
         }
-      }
+    }
     
     private func dismissToast() {
-        withAnimation {
+        withAnimation(.bouncy) {
             toastViewModel.hideToast()
         }
         
         workItem?.cancel()
         workItem = nil
-      }
+    }
 }

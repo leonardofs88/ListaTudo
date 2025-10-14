@@ -41,14 +41,3 @@ class ChoreViewModel: ChoreViewModelProtocol {
         chore.description = description
     }
 }
-
-struct ChoreViewModelKey: EnvironmentKey {
-    static let defaultValue: (any ChoreViewModelProtocol)? = nil
-}
-
-extension EnvironmentValues {
-    var choreViewModel: (any ChoreViewModelProtocol)? {
-        get { self[ChoreViewModelKey.self] }
-        set { self[ChoreViewModelKey.self] = newValue }
-    }
-}

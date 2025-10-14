@@ -34,24 +34,26 @@
 		9842ED782E95348E0010A8F1 /* Exceptions for "ChoreQuest" folder in "GuildChoresTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Protocols/ChoresListCardViewModelProtocol.swift,
 				Protocols/ChoreViewModelProtocol.swift,
-				Protocols/ListingCardViewModelProtocol.swift,
 				Protocols/MainViewModelProtocol.swift,
 				Protocols/ToastViewModelProtocol.swift,
 				Views/SharedViews/Toast/ToastStyle.swift,
+				Views/SharedViews/Toast/ToastViewModel.swift,
 			);
 			target = 982A19492E51FE58003F1C26 /* GuildChoresTests */;
 		};
 		9842ED792E95348E0010A8F1 /* Exceptions for "ChoreQuest" folder in "GuildChoresUITests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Protocols/ChoresListCardViewModelProtocol.swift,
 				Protocols/ChoreViewModelProtocol.swift,
-				Protocols/ListingCardViewModelProtocol.swift,
 				Protocols/MainViewModelProtocol.swift,
 				Protocols/ToastViewModelProtocol.swift,
 				Views/SharedViews/Toast/Toast.swift,
 				Views/SharedViews/Toast/ToastModifier.swift,
 				Views/SharedViews/Toast/ToastStyle.swift,
+				Views/SharedViews/Toast/ToastViewModel.swift,
 			);
 			target = 982A19532E51FE58003F1C26 /* GuildChoresUITests */;
 		};

@@ -10,24 +10,21 @@ import SwiftUI
 @Observable
 class MainViewModel: MainViewModelProtocol {
     
-    private(set) var lists: [ListingCardViewModel] = []
-    
-    @MainActor
-    func saveList(id: UUID? = nil, title: String, chores: [ChoreData]) async {
+    private(set) var lists: [ChoresListCardViewModel] = []
+
+    func saveList(id: UUID? = nil, title: String, chores: [ChoreData]) {
         if let id, let index = lists.firstIndex(where: { $0.id == id }) {
             lists[index].setTitle(title)
             chores.lazy.forEach { chore in
-                Task {
-                    await lists[index].saveChore(
-                        id: chore.id,
-                        title: chore.title,
-                        description: chore.description
-                    )
-                }
+                lists[index].saveChore(
+                    id: chore.id,
+                    title: chore.title,
+                    description: chore.description
+                )
             }
         } else {
             let viewModels = chores.map { ChoreViewModel(chore: $0) }
-            let newList = ListingCardViewModel(
+            let newList = ChoresListCardViewModel(
                 title: title,
                 choreList: viewModels
             )

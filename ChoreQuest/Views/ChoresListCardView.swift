@@ -7,16 +7,16 @@
 
 import SwiftUI
 
-struct ChoresCardView<VM: ListingCardViewModel>: View {
+struct ChoresListCardView<VM: ChoresListCardViewModelProtocol>: View {
     
-    @State private(set) var listingCardViewModel: VM
+    @State private(set) var choresListCardViewModel: VM
     
     @State private var sheetIsPresented: Bool = false
     
     var body: some View {
         VStack {
             HStack {
-                Text(listingCardViewModel.title)
+                Text(choresListCardViewModel.title)
                     .font(.largeTitle)
                     .fontWeight(.bold)
                 Spacer()
@@ -28,31 +28,30 @@ struct ChoresCardView<VM: ListingCardViewModel>: View {
                 .buttonStyle(ChoreQuestButtonStyle())
             }
             
-            ScrollView {
-                LazyVStack {
-                    ForEach(listingCardViewModel.choreList, id: \.id) { item in
-                        ChoreInfoView(
-                            choreViewModel: item,
-                            isEditable: false
-                        )
+            if let list = choresListCardViewModel.choreList {
+                ScrollView {
+                    LazyVStack {
+                        ForEach(list, id: \.id) { item in
+                            ChoreInfoView(
+                                choreViewModel: item,
+                                action: {
+                                    
+                                })
+                        }
                     }
                 }
             }
         }
-        .environment(listingCardViewModel)
         .padding()
         .sheet(isPresented: $sheetIsPresented) {
-            EditListView(
-                $sheetIsPresented,
-                listingViewModel: listingCardViewModel
-            )
+            EditListView($sheetIsPresented, choresCardViewModel: choresListCardViewModel)
         }
     }
 }
 
 #Preview {
-    ChoresCardView(
-        listingCardViewModel: ListingCardViewModel(
+    ChoresListCardView(
+        choresListCardViewModel: ChoresListCardViewModel(
             title: "Household chores",
             choreList: [
                 ChoreViewModel(

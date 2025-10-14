@@ -14,27 +14,29 @@ enum ChoreItemSelection: Identifiable {
     var id: UUID { UUID() }
 }
 
-struct EditListView: View {
+struct EditListView<VM: ChoresListCardViewModelProtocol>: View {
     
     @Environment(\.mainViewModel) private var mainViewModel
     @Environment(\.toastViewModel) private var toastViewModel
     
-    @Binding private(set) var isPresented: Bool
-    
     @FocusState private var titleIsFocused
     
     @State private(set) var title: String = ""
-    @State private(set) var listingViewModel: ListingCardViewModel
-    //    @State private var choreItemSelection: ChoreItemSelection?
-    @State private(set) var isNewList: Bool
+    
+    @Binding private(set) var isPresented: Bool
+    
+    @State private(set) var choresListCardViewModel: VM
+    
+    var isNewList: Bool
     
     init(
         _ isPresented: Binding<Bool>,
-        listingViewModel: ListingCardViewModel? = nil
+        isNewList: Bool = true,
+        choresCardViewModel: VM
     ) {
-        self.isNewList = listingViewModel == nil
         self._isPresented = isPresented
-        self.listingViewModel = listingViewModel ?? ListingCardViewModel(title: "")
+        self.choresListCardViewModel = choresCardViewModel
+        self.isNewList = isNewList
     }
     
     var body: some View {
@@ -44,27 +46,28 @@ struct EditListView: View {
                     .focused($titleIsFocused)
                     .font(.title)
                     .fontWeight(.bold)
-                    .padding()
                 
-                ChoreListItemView(choreItemType: .add)
-                    .padding()
+                AddChoreItemView(choreItemType: .button)
                 
-                ScrollView {
-                    
-                    VStack {
-                        Text("Chore List")
-                            .foregroundStyle(Color.greenFont)
-                            .font(.headline)
-                            .fontWeight(.bold)
-                            .frame(maxWidth:.infinity, alignment: .leading)
-                        ForEach(listingViewModel.choreList, id: \.chore.id) { item in
-                            ChoreListItemView(choreItemType: .info(item,
-                                                                   isEditable: true))
+                if let list = choresListCardViewModel.choreList {
+                    ScrollView {
+                        VStack {
+                            Text("Chore List")
+                                .foregroundStyle(Color.greenFont)
+                                .font(.headline)
+                                .fontWeight(.bold)
+                                .frame(maxWidth:.infinity, alignment: .leading)
+                            ForEach(list, id: \.chore.id) { item in
+                                EditChoreView(choreViewModel: item)
+                            }
                         }
                     }
                 }
-                .padding()
+                else {
+                    Spacer()
+                }
             }
+            .padding()
             .background(.defaultGreen.opacity(0.3))
             .toast()
             .toolbar {
@@ -114,15 +117,16 @@ struct EditListView: View {
                 )
             )
             .onAppear {
-                title = listingViewModel.title
+                title = choresListCardViewModel.title
             }
         }
-        .environment(listingViewModel)
+        .environment(\.choresListCardViewModel, choresListCardViewModel)
     }
     
     @MainActor
     private func listValidator() async {
-        if listingViewModel.choreList.isEmpty || title.isEmpty {
+        guard let list = choresListCardViewModel.choreList else { return }
+        if list.isEmpty || title.isEmpty {
             toastViewModel.setToast(
                 ToastData(
                     style: .alert,
@@ -132,11 +136,11 @@ struct EditListView: View {
             )
             toastViewModel.showToast()
         } else {
-            listingViewModel.setTitle(title)
-            await mainViewModel.saveList(
-                id: listingViewModel.id,
+            choresListCardViewModel.setTitle(title)
+            mainViewModel.saveList(
+                id: choresListCardViewModel.id,
                 title: title,
-                chores: listingViewModel.choreList.map({ $0.chore })
+                chores: list.map({ $0.chore })
             )
             isPresented = false
         }
@@ -144,7 +148,8 @@ struct EditListView: View {
 }
 
 #Preview {
-    EditListView(.constant(true))
-        .environment(MainViewModel())
-        .environment(ToastViewModel())
+    EditListView(.constant(true),
+                 choresCardViewModel: ChoresListCardViewModel())
+    .environment(MainViewModel())
+    .environment(ToastViewModel())
 }

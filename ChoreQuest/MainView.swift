@@ -17,10 +17,11 @@ struct MainView: View {
     
     var body: some View {
         ZStack {
-            if !editViewPresented {
+            if !editViewPresented { 
                 CardListingView(editViewPresented: $editViewPresented, animation: mainNamespace)
             } else  {
-                EditListView($editViewPresented)
+                EditListView($editViewPresented,
+                             choresCardViewModel: ChoresListCardViewModel())
                 .matchedGeometryEffect(
                     id: "sheet",
                     in: mainNamespace,

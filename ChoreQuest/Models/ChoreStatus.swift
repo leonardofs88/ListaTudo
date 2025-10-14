@@ -16,6 +16,7 @@ enum ChoreStatus: Codable, Equatable, Hashable {
     case approved
     case cancelled(reason: String)
     
+    // TODO: - Change system colors to app system
     func color() -> Color {
         switch self {
         case .toDo:

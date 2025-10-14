@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct EditChoreListItem: View {
-    @Binding private(set) var title: String
-    @Binding private(set) var description: String
-    @Binding private(set) var titlePlaceholder: String
-    @Binding private(set) var titleIsValid: Bool
+    @Binding var title: String
+    @Binding var description: String
+    
+    @State var titlePlaceholder = "Chore Title"
+    @State var titleIsValid: Bool = true
     
     private(set) var saveAction: () -> Void
     private(set) var cancelAction: () -> Void
@@ -27,25 +28,46 @@ struct EditChoreListItem: View {
             )
             
             EditActionBarView(
-                saveAction: saveAction,
-                cancelAction: cancelAction,
+                saveAction: {
+                    titleValidator(title)
+                    if titleIsValid {
+                        withAnimation(.bouncy) {
+                            saveAction()
+                        }
+                    }
+                },
+                cancelAction:
+                    {
+                        title = ""
+                        description = ""
+                        titleIsValid = true
+                        withAnimation(.bouncy) {
+                            cancelAction()
+                        }
+                    },
                 deleteAction: deleteAction)
         }
-        .padding(10)
         .background(
             RoundedRectangle(cornerRadius: 20)
                 .fill(.orange.opacity(0.5))
                 .shadow(color: .gray, radius: 2, x: 0, y: 2)
         )
     }
+    
+    private func titleValidator(_ title: String) {
+        if title.isEmpty {
+            titlePlaceholder = "Title cannot be empty"
+            titleIsValid = false
+        } else {
+            titleIsValid = true
+        }
+    }
 }
 
 #Preview {
     EditChoreListItem(
-        title: .constant("title"),
-        description: .constant("description"),
-        titlePlaceholder: .constant("Chore Title"),
-        titleIsValid: .constant(true),
+        title: .constant("a"),
+        description: .constant("b"),
         saveAction: {
             print("Save")
         },

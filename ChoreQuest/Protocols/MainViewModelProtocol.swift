@@ -9,9 +9,9 @@ import Foundation
 import SwiftUI
 
 protocol MainViewModelProtocol: Observable {
-    var lists: [ListingCardViewModel] { get }
+    var lists: [ChoresListCardViewModel] { get }
     
-    func saveList(id: UUID?, title: String, chores: [ChoreData]) async
+    func saveList(id: UUID?, title: String, chores: [ChoreData])
     func getLists() async
 }
 

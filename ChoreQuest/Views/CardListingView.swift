@@ -16,85 +16,85 @@ struct CardListingView: View {
     var animation: Namespace.ID
     
     var body: some View {
-            VStack {
-                /**
-                 Cards view styling adapted from: https://medium.com/@kusalprabathrajapaksha/animated-carousel-view-swiftui-cee1954f0be7
-                 */
-                if !mainViewModel.lists.isEmpty {
-                    GeometryReader { proxy in
-                        ScrollView(.horizontal) {
-                            LazyHStack(spacing: 10) {
-                                ForEach(
-                                    Array(
-                                        mainViewModel.lists.enumerated()
-                                    ),
-                                    id: \.offset
-                                ) {
-                                    index,
-                                    item in
-                                    // TODO: - Adjustment for cards on portrait mode and iPad
-                                    ChoresCardView(
-                                        listingCardViewModel: item
-                                    )
-                                    .frame(
-                                        width: proxy.size.width * 0.94,
-                                        height:proxy.size.height * 0.94,
-                                        alignment: .leading
-                                    )
-                                }
-                                .clipShape(.rect(cornerRadius: 20.0))
+        VStack {
+            /**
+             Cards view styling adapted from: https://medium.com/@kusalprabathrajapaksha/animated-carousel-view-swiftui-cee1954f0be7
+             */
+            if !mainViewModel.lists.isEmpty {
+                GeometryReader { proxy in
+                    ScrollView(.horizontal) {
+                        LazyHStack(spacing: 10) {
+                            ForEach(
+                                Array(
+                                    mainViewModel.lists.enumerated()
+                                ),
+                                id: \.offset
+                            ) {
+                                index,
+                                item in
+                                // TODO: - Adjustment for cards on portrait mode and iPad
+                                ChoresListCardView(
+                                    choresListCardViewModel: item
+                                )
+                                .frame(
+                                    width: proxy.size.width * 0.94,
+                                    height:proxy.size.height * 0.94,
+                                    alignment: .leading
+                                )
                             }
-                            .shadow(radius: 5, x: 5, y: 5)
-                            .scrollTargetLayout() // Align content to the view
+                            .clipShape(.rect(cornerRadius: 20.0))
                         }
-                    }
-                    .contentMargins(10, for: .scrollContent)
-                    .scrollTargetBehavior(.viewAligned) // Align content behavior
-                    .task {
-                        await mainViewModel.getLists()
-                    }
-                } else {
-                    VStack {
-                        Text("Empty box")
-                            .font(.title)
-                            .foregroundStyle(Color.gray.opacity(0.5))
-                            .fontWeight(.bold)
-                        Text("Create a new list on the button below")
-                            .font(.title3)
-                            .multilineTextAlignment(.center)
-                            .foregroundStyle(Color.gray.opacity(0.5))
-                            .fontWeight(.bold)
-                        Image(systemName: IconNames.Objects.archiveBox)
-                            .font(.largeTitle)
-                            .foregroundStyle(Color.gray.opacity(0.5))
-                            .fontWeight(.bold)
-                    }
-                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-                }
-                
-                Button {
-                    withAnimation(.linear(duration: 0.3)) {
-                        editViewPresented = true
-                    }
-                } label: {
-                    HStack {
-                        Image(systemName: IconNames.Objects.pencilAndListClipboard)
-                        Text("Create a new List")
+                        .shadow(radius: 5, x: 5, y: 5)
+                        .scrollTargetLayout() // Align content to the view
                     }
                 }
-                .matchedGeometryEffect(
-                    id: "sheet",
-                    in: animation,
-                    properties: .position
-                )
-                .transition(
-                    .asymmetric(
-                        insertion: .move(edge: .top),
-                        removal: .move(edge: .bottom)
-                    )
-                )
-                .buttonStyle(ChoreQuestButtonStyle())
+                .contentMargins(10, for: .scrollContent)
+                .scrollTargetBehavior(.viewAligned) // Align content behavior
+                .task {
+                    await mainViewModel.getLists()
+                }
+            } else {
+                VStack {
+                    Text("Empty box")
+                        .font(.title)
+                        .foregroundStyle(Color.gray.opacity(0.5))
+                        .fontWeight(.bold)
+                    Text("Create a new list on the button below")
+                        .font(.title3)
+                        .multilineTextAlignment(.center)
+                        .foregroundStyle(Color.gray.opacity(0.5))
+                        .fontWeight(.bold)
+                    Image(systemName: IconNames.Objects.archiveBox)
+                        .font(.largeTitle)
+                        .foregroundStyle(Color.gray.opacity(0.5))
+                        .fontWeight(.bold)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             }
+            
+            Button {
+                withAnimation(.linear(duration: 0.3)) {
+                    editViewPresented = true
+                }
+            } label: {
+                HStack {
+                    Image(systemName: IconNames.Objects.pencilAndListClipboard)
+                    Text("Create a new List")
+                }
+            }
+            .matchedGeometryEffect(
+                id: "sheet",
+                in: animation,
+                properties: .position
+            )
+            .transition(
+                .asymmetric(
+                    insertion: .move(edge: .top),
+                    removal: .move(edge: .bottom)
+                )
+            )
+            .buttonStyle(ChoreQuestButtonStyle())
+        }
     }
 }
 

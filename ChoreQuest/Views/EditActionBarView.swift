@@ -16,12 +16,13 @@ struct EditActionBarView: View {
         
         HStack {
             Button(action: cancelAction) {
-                Image(systemName: "arrowshape.turn.up.backward")
+                Image(systemName: .arrowshapeTurnUpBackward)
             }
             .buttonStyle(
                 ChoreQuestButtonStyle(
-                    padding: 8,
-                    backgroundColor: .defaultRed
+                    padding: 12,
+                    backgroundColor: .defaultRed,
+                    shape: .circle
                 )
             )
             
@@ -29,11 +30,12 @@ struct EditActionBarView: View {
                 Spacer()
                 
                 Button(action: deleteAction) {
-                    Image(systemName: "trash")
+                    Image(systemName: .trash)
                 }.buttonStyle(
                     ChoreQuestButtonStyle(
-                        padding: 8,
-                        backgroundColor: .defaultRed
+                        padding: 12,
+                        backgroundColor: .defaultRed,
+                        shape: .circle
                     )
                 )
             }
@@ -41,9 +43,14 @@ struct EditActionBarView: View {
             Spacer()
             
             Button(action: saveAction) {
-                Image(systemName: "heart.text.clipboard")
-            }.buttonStyle(ChoreQuestButtonStyle(padding: 8))
+                Image(systemName: .heartTextClipboard)
+            }.buttonStyle(
+                ChoreQuestButtonStyle(padding: 12,
+                                      shape: .circle)
+            )
         }
+        .padding(.horizontal)
+        .padding(.vertical, 8)
     }
 }
 
