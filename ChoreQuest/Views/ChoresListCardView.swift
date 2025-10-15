@@ -28,19 +28,19 @@ struct ChoresListCardView<VM: ChoresListCardViewModelProtocol>: View {
                 .buttonStyle(ChoreQuestButtonStyle())
             }
             
-            if let list = choresListCardViewModel.choreList {
-                ScrollView {
-                    LazyVStack {
-                        ForEach(list, id: \.id) { item in
-                            ChoreInfoView(
-                                choreViewModel: item,
-                                action: {
-                                    
-                                })
-                        }
-                    }
-                }
-            }
+//            if let list = choresListCardViewModel.choreList {
+//                ScrollView {
+//                    LazyVStack {
+//                        ForEach(list, id: \.id) { item in
+//                            ChoreInfoView(
+//                                choreViewModel: item,
+//                                action: {
+//                                    
+//                                })
+//                        }
+//                    }
+//                }
+//            }
         }
         .padding()
         .sheet(isPresented: $sheetIsPresented) {

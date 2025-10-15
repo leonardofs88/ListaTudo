@@ -20,7 +20,6 @@ protocol ChoresListCardViewModelProtocol: Identifiable {
     func pauseOnGoingChore()
 }
 
-// TODO: - Change to use Factory
 struct ChoresListCardViewModelKey: EnvironmentKey {
     static let defaultValue: any ChoresListCardViewModelProtocol = ChoresListCardViewModel()
 }

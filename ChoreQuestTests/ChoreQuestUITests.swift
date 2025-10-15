@@ -6,7 +6,7 @@
 //
 
 import Testing
-@testable import ChoreQuest
+@testable import GuildChores
 
 struct ChoreQuestUITests {
 

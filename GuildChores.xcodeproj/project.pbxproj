@@ -34,6 +34,8 @@
 		9842ED782E95348E0010A8F1 /* Exceptions for "ChoreQuest" folder in "GuildChoresTests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Models/ChoreData.swift,
+				Models/ChoreStatus.swift,
 				Protocols/ChoresListCardViewModelProtocol.swift,
 				Protocols/ChoreViewModelProtocol.swift,
 				Protocols/MainViewModelProtocol.swift,
@@ -46,6 +48,8 @@
 		9842ED792E95348E0010A8F1 /* Exceptions for "ChoreQuest" folder in "GuildChoresUITests" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Models/ChoreData.swift,
+				Models/ChoreStatus.swift,
 				Protocols/ChoresListCardViewModelProtocol.swift,
 				Protocols/ChoreViewModelProtocol.swift,
 				Protocols/MainViewModelProtocol.swift,
